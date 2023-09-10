@@ -1,18 +1,9 @@
+import "react-native-gesture-handler";
+
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaView, StatusBar, useColorScheme } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import Home from "./src/screens/Home";
-
-const Stack = createNativeStackNavigator();
-
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-    </Stack.Navigator>
-  );
-}
+import StackNavigator from "./src/navigation/StackNavigator";
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -28,7 +19,7 @@ function App(): JSX.Element {
           barStyle={isDarkMode ? "light-content" : "dark-content"}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <MyStack />
+        <StackNavigator />
       </SafeAreaView>
     </NavigationContainer>
   );

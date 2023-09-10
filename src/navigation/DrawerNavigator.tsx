@@ -12,6 +12,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CartIcon from "../assets/images/cart_icon.svg";
 import HamburgerMenuIcon from "../assets/images/hamburger_icon.svg";
+import CustomDrawer from "../components/Drawer";
 import { FONT_SIZE, PALETTE } from "../constants";
 import type { DrawerParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -51,6 +52,7 @@ function DrawerNavigator() {
           width: Dimensions.get("window").width / 1.25,
         },
       })}
+      drawerContent={(props) => <CustomDrawer {...props} />}
     >
       <Drawer.Screen name="Main" component={BottomTabNavigator} />
     </Drawer.Navigator>

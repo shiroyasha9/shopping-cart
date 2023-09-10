@@ -1,9 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Home from './src/screens/Home';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaView, StatusBar, useColorScheme } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import Home from "./src/screens/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,7 @@ function MyStack() {
 }
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -26,7 +25,7 @@ function App(): JSX.Element {
     <NavigationContainer>
       <SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
         <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          barStyle={isDarkMode ? "light-content" : "dark-content"}
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <MyStack />

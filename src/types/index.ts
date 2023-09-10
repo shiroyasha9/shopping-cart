@@ -45,3 +45,9 @@ declare global {
     interface RootParamList extends RootNativeStackParamList {}
   }
 }
+
+export type OnboardingSlideData = {
+  readonly title: string;
+  readonly subtitle: string;
+  readonly Icon: React.ReactNode;
+};

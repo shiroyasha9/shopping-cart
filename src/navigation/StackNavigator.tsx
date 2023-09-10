@@ -13,6 +13,7 @@ function StackNavigator() {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Onboarding"
     >
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />

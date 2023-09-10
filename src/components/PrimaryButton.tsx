@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: FONT_SIZE.regular,
+    fontSize: FONT_SIZE.massive,
     fontWeight: "bold",
     textAlign: "center",
     textTransform: "uppercase",

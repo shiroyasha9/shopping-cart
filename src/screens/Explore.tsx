@@ -22,6 +22,7 @@ const ExploreScreen = () => {
       <FlatList
         data={data}
         style={styles.container}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => {
           return (
             <>

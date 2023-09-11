@@ -2,6 +2,7 @@ import {
   createDrawerNavigator,
   type DrawerHeaderProps,
 } from "@react-navigation/drawer";
+import { useAtomValue } from "jotai";
 import {
   Dimensions,
   StyleSheet,
@@ -14,12 +15,15 @@ import HamburgerMenuIcon from "../assets/images/hamburger_icon.svg";
 import { StatusBar } from "../components";
 import CustomDrawer from "../components/Drawer";
 import { FONT_SIZE, PALETTE } from "../constants";
+import { cartAtom } from "../store";
 import type { DrawerParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
 const DrawerHeader = (props: DrawerHeaderProps) => {
+  const cart = useAtomValue(cartAtom);
+
   const { navigation } = props;
   return (
     <View style={styles.headerContainer}>
@@ -28,7 +32,10 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
       </TouchableOpacity>
       <Text style={styles.headerLogo}>Lorem ipsum</Text>
       <TouchableOpacity>
-        <CartIcon height={32} width={32} />
+        <View style={styles.cartCountContainer}>
+          <Text style={styles.cartCount}>{cart.length}</Text>
+        </View>
+        <CartIcon height={32} width={32} fill={PALETTE.blackberry} />
       </TouchableOpacity>
     </View>
   );
@@ -71,5 +78,22 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.large,
     paddingTop: 2,
     color: PALETTE.blackberry,
+  },
+  cartCountContainer: {
+    position: "absolute",
+    top: 0,
+    right: -5,
+    backgroundColor: PALETTE.orange,
+    borderRadius: 50,
+    width: 14,
+    height: 14,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  cartCount: {
+    fontSize: FONT_SIZE.tiny,
+    color: PALETTE.offWhite,
+    fontWeight: "bold",
   },
 });

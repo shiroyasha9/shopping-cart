@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 
+import HomeIcon from "../assets/images/home_icon.svg";
+import { PALETTE } from "../constants";
 import CartScreen from "../screens/Cart";
 import ExploreScreen from "../screens/Explore";
 import PaymentScreen from "../screens/Payment";
@@ -18,8 +20,17 @@ const BottomTabsNavigator = () => {
         headerShown: false,
         tabBarShowLabel: false,
       }}
+      sceneContainerStyle={{
+        backgroundColor: PALETTE.offWhite,
+      }}
     >
-      <Tab.Screen name="Explore" component={ExploreScreen} />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{
+          tabBarIcon: () => <HomeIcon height={30} width={30} />,
+        }}
+      />
       <Tab.Screen name="Products" component={ProductsScreen} />
       <Tab.Screen name="Product" component={ProductScreen} />
       <Tab.Screen name="Cart" component={CartScreen} />

@@ -8,7 +8,9 @@ import {
   View,
   ViewProps,
 } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
 import { moderateScale } from "react-native-size-matters";
+import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
@@ -18,6 +20,13 @@ type InputProps = {
   style?: TextInputProps["style"];
   containerStyle?: ViewProps["style"];
 };
+
+const SELECT_ITEMS = [
+  { label: "Lorem", value: "lorem" },
+  { label: "Ipsum", value: "ipsum" },
+  { label: "Dolor", value: "dolor" },
+  { label: "Sit", value: "sit" },
+];
 
 const Input = (props: TextInputProps & InputProps) => {
   const { placeholder, style, containerStyle, ...rest } = props;
@@ -80,41 +89,46 @@ const PaymentScreen = () => {
         <Text style={[styles.cardTitle, styles.darkTitle]}>Ipsum dolor</Text>
         <Input
           placeholder="John Doe"
-          placeholderTextColor={"rgba(0, 0, 0, 0.5)"}
+          placeholderTextColor="rgba(0, 0, 0, 0.5)"
           style={styles.darkInput}
         />
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              width: "40%",
+        <View style={styles.selectContainer}>
+          <RNPickerSelect
+            // @ts-ignore
+            Icon={() => {
+              return <CaretDownIcon height={24} width={24} />;
             }}
-          >
-            <Text>Amet</Text>
-            <TextInput
-              style={{
-                borderBottomWidth: 1,
-              }}
-            />
-          </View>
-          <View
             style={{
-              width: "40%",
+              inputIOS: { ...styles.input, ...styles.darkInput },
+              inputAndroid: {
+                ...styles.input,
+                ...styles.darkInput,
+              },
+              viewContainer: {
+                width: "45%",
+              },
             }}
-          >
-            <Text>Lorem</Text>
-            <TextInput
-              style={{
-                borderBottomWidth: 1,
-              }}
-            />
-          </View>
+            onValueChange={(value) => console.log(value)}
+            items={SELECT_ITEMS}
+          />
+          <RNPickerSelect
+            // @ts-ignore
+            Icon={() => {
+              return <CaretDownIcon height={24} width={24} />;
+            }}
+            style={{
+              inputIOS: { ...styles.input, ...styles.darkInput },
+              inputAndroid: {
+                ...styles.input,
+                ...styles.darkInput,
+              },
+              viewContainer: {
+                width: "45%",
+              },
+            }}
+            onValueChange={(value) => console.log(value)}
+            items={SELECT_ITEMS}
+          />
         </View>
       </View>
       <PrimaryButton title="pay" />
@@ -183,5 +197,10 @@ const styles = StyleSheet.create({
   },
   addressContainer: {
     rowGap: 20,
+  },
+  selectContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

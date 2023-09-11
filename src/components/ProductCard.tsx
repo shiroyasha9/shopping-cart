@@ -16,7 +16,13 @@ export const ProductCard = (props: ProductCardProps) => {
         {product.title}
       </Text>
       <Image source={{ uri: product.image }} style={styles.image} />
-      <Quantity id={product.id} />
+      <Quantity
+        id={product.id}
+        price={product.price}
+        title={product.title}
+        description={product.description}
+        image={product.image}
+      />
       <Text style={styles.price}>${product.price}</Text>
     </View>
   );

@@ -64,3 +64,7 @@ export type Product = {
     count: number;
   };
 };
+
+export type CartItem = Omit<Product, "rating" | "category"> & {
+  quantity: number;
+};

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 8,
-    backgroundColor: "#fff",
+    backgroundColor: PALETTE.offWhite,
   },
   headerLogo: {
     fontWeight: "bold",

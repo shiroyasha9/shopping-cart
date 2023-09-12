@@ -15,33 +15,37 @@ import { FONT_SIZE, PALETTE } from "../constants";
 
 const DRAWER_ITEMS: {
   icon: React.FC<SvgProps>;
+  iconProps?: SvgProps;
   title: string;
 }[] = [
-  {
-    icon: MailIcon,
-    title: "Messages",
-  },
-  {
-    icon: BellIcon,
-    title: "Notifications",
-  },
-  {
-    icon: CardIcon,
-    title: "Payment Methods",
-  },
-  {
-    icon: MoneyIcon,
-    title: "Transactions",
-  },
-  {
-    icon: SettingsIcon,
-    title: "Settings",
-  },
-  {
-    icon: LogoutIcon,
-    title: "Logout",
-  },
-];
+    {
+      icon: MailIcon,
+      title: "Messages",
+    },
+    {
+      icon: BellIcon,
+      title: "Notifications",
+    },
+    {
+      icon: CardIcon,
+      title: "Payment Methods",
+    },
+    {
+      icon: MoneyIcon,
+      title: "Transactions",
+      iconProps: {
+        fill: PALETTE.white,
+      },
+    },
+    {
+      icon: SettingsIcon,
+      title: "Settings",
+    },
+    {
+      icon: LogoutIcon,
+      title: "Logout",
+    },
+  ];
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   return (
@@ -72,7 +76,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
                 },
               ]}
             >
-              <Icon height={48} width={48} />
+              <Icon {...item.iconProps} height={48} width={48} />
               <Text style={styles.drawerItemTitle}>{item.title}</Text>
             </TouchableOpacity>
           );

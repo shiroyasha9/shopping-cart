@@ -4,6 +4,7 @@ import React from "react";
 import CartIcon from "../assets/images/cart_icon.svg";
 import CategoriesIcon from "../assets/images/categories_icon.svg";
 import HomeIcon from "../assets/images/home_icon.svg";
+import MoneyIcon from "../assets/images/money_icon.svg";
 import { PALETTE } from "../constants";
 import CartScreen from "../screens/Cart";
 import ExploreScreen from "../screens/Explore";
@@ -64,7 +65,15 @@ const BottomTabsNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen name="Payment" component={PaymentScreen} />
+      <Tab.Screen
+        name="Payment"
+        component={PaymentScreen}
+        options={{
+          tabBarIcon: () => (
+            <MoneyIcon height={30} width={30} fill={PALETTE.orange} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };

@@ -41,7 +41,7 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
 
 export type CategoryStackParamList = {
   Categories: undefined;
-  Products: undefined;
+  Products: { category: string };
   Product: undefined;
 };
 

@@ -35,6 +35,20 @@ const BottomTabsNavigator = () => {
       <Tab.Screen
         name="Category"
         component={CategoryNavigator}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Drawer", {
+              screen: "Main",
+              params: {
+                screen: "Category",
+                params: {
+                  screen: "Categories",
+                },
+              },
+            });
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <CategoriesIcon height={30} width={30} fill={PALETTE.orange} />

@@ -1,4 +1,5 @@
 import { StyleSheet, View, ViewProps } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import { PALETTE } from "../constants";
 
 export const Card = (props: ViewProps) => {
@@ -9,10 +10,10 @@ export const Card = (props: ViewProps) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingHorizontal: 16,
-    paddingVertical: 24,
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(24),
     backgroundColor: PALETTE.orange,
     borderRadius: 20,
-    rowGap: 20,
+    rowGap: verticalScale(20),
   },
 });

@@ -6,6 +6,7 @@ import {
   TextStyle,
   View,
 } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import { FONT_SIZE, PALETTE } from "../constants";
 
 type InputProps = {
@@ -26,15 +27,15 @@ export const Input = (props: TextInputProps & InputProps) => {
 const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
-    marginBottom: 6,
-    marginLeft: 12,
+    marginBottom: verticalScale(6),
+    marginLeft: scale(12),
     color: PALETTE.blackberry,
   },
   input: {
     backgroundColor: PALETTE.white,
     borderRadius: 48,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingHorizontal: scale(12),
+    paddingVertical: verticalScale(8),
     fontSize: FONT_SIZE.medium,
   },
 });

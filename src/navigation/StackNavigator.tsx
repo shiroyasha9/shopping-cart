@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { PALETTE } from "../constants";
 import AuthScreen from "../screens/Auth";
 import OnboardingScreen from "../screens/Onboarding";
 import { RootNativeStackParamList } from "../types";
@@ -12,6 +13,9 @@ function StackNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        contentStyle: {
+          backgroundColor: PALETTE.blackberry,
+        },
       }}
       initialRouteName="Onboarding"
     >

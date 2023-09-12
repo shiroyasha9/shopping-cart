@@ -1,5 +1,12 @@
 import { memo } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import { FONT_SIZE, PALETTE } from "../constants";
 
 type RadioTabs = {
@@ -21,12 +28,11 @@ const RadioTabsNavigation: React.FC<RadioTabsNavigationProps> = (props) => {
       {tabs.map((tab) => {
         const { onPress, tabName, title } = tab;
         return (
-          <Pressable
+          <TouchableOpacity
             key={tabName}
             onPress={onPress}
-            // @ts-ignore passing strings to width should work, but idk
             style={{
-              width: (1 / tabs.length) * 100 + "%",
+              width: Dimensions.get("window").width / tabs.length,
             }}
           >
             <View
@@ -34,9 +40,9 @@ const RadioTabsNavigation: React.FC<RadioTabsNavigationProps> = (props) => {
                 styles.radioTabContainer,
                 selectedTab === tabName
                   ? {
-                      borderBottomWidth: 2,
-                      borderBottomColor: PALETTE.orange,
-                    }
+                    borderBottomWidth: 2,
+                    borderBottomColor: PALETTE.orange,
+                  }
                   : {},
               ]}
             >
@@ -56,7 +62,7 @@ const RadioTabsNavigation: React.FC<RadioTabsNavigationProps> = (props) => {
                 </Text>
               )}
             </View>
-          </Pressable>
+          </TouchableOpacity>
         );
       })}
     </View>
@@ -67,8 +73,8 @@ export default memo(RadioTabsNavigation);
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
-    height: 56,
+    marginVertical: verticalScale(8),
+    height: verticalScale(56),
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-evenly",
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 48,
+    marginHorizontal: scale(48),
   },
   title: {
     fontSize: FONT_SIZE.large,

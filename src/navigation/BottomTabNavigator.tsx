@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 
 import CartIcon from "../assets/images/cart_icon.svg";
+import CategoriesIcon from "../assets/images/categories_icon.svg";
 import HomeIcon from "../assets/images/home_icon.svg";
 import { PALETTE } from "../constants";
 import CartScreen from "../screens/Cart";
@@ -31,7 +32,15 @@ const BottomTabsNavigator = () => {
           tabBarIcon: () => <HomeIcon height={30} width={30} />,
         }}
       />
-      <Tab.Screen name="Category" component={CategoryNavigator} />
+      <Tab.Screen
+        name="Category"
+        component={CategoryNavigator}
+        options={{
+          tabBarIcon: () => (
+            <CategoriesIcon height={30} width={30} fill={PALETTE.orange} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Cart"
         component={CartScreen}

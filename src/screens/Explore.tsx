@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, View } from "react-native";
+import { verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
 import { InvisibleItem, ProductCard } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
@@ -43,6 +44,6 @@ export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: verticalScale(20),
   },
 });

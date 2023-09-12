@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { Product } from "../types";
 import Quantity from "./Quantity";
@@ -56,11 +57,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   image: {
-    height: 150,
-    width: 150,
+    height: scale(120),
+    width: scale(120),
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: PALETTE.orange,
   },
   item: {
     borderColor: PALETTE.blackberry,
@@ -69,9 +68,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flex: 1,
-    margin: 12,
-    padding: 10,
-    rowGap: 12,
+    margin: scale(12),
+    padding: scale(10),
+    rowGap: scale(12),
   },
   itemInvisible: {
     borderColor: "transparent",

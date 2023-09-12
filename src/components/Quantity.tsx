@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { scale } from "react-native-size-matters";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
 import { CartItem } from "../types";
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    columnGap: 10,
+    columnGap: scale(10),
   },
   action: { color: PALETTE.blackberry },
   quantityContainer: {

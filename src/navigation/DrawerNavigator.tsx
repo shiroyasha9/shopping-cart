@@ -25,13 +25,18 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
   const cart = useAtomValue(cartAtom);
 
   const { navigation } = props;
+
+  const onCartPress = () => {
+    navigation.navigate("Cart");
+  };
+
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={navigation.toggleDrawer}>
         <HamburgerMenuIcon height={32} width={32} />
       </TouchableOpacity>
       <Text style={styles.headerLogo}>Lorem ipsum</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onCartPress}>
         <View style={styles.cartCountContainer}>
           <Text style={styles.cartCount}>{cart.length}</Text>
         </View>

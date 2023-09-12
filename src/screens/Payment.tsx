@@ -1,4 +1,4 @@
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { useMemo } from "react";
 import {
   StyleSheet,
@@ -43,13 +43,17 @@ const Input = (props: TextInputProps & InputProps) => {
 };
 
 const PaymentScreen = () => {
-  const cart = useAtomValue(cartAtom);
+  const [cart, setCart] = useAtom(cartAtom);
 
   const totalPrice = useMemo(() => {
     return cart.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
   }, [cart]);
+
+  const onPayPress = () => {
+    setCart([]);
+  };
 
   return (
     <View style={styles.container}>
@@ -131,7 +135,7 @@ const PaymentScreen = () => {
           />
         </View>
       </View>
-      <PrimaryButton title="pay" />
+      <PrimaryButton title="pay" onPress={onPayPress} />
     </View>
   );
 };

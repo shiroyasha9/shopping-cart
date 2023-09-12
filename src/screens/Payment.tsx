@@ -19,6 +19,7 @@ import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
+import { BottomTabsScreenProps } from "../types";
 
 type InputProps = {
   placeholder: string;
@@ -47,7 +48,7 @@ const Input = (props: TextInputProps & InputProps) => {
   );
 };
 
-const PaymentScreen = () => {
+const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   const [cart, setCart] = useAtom(cartAtom);
 
   const totalPrice = useMemo(() => {
@@ -59,6 +60,19 @@ const PaymentScreen = () => {
   const onPayPress = () => {
     setCart([]);
   };
+
+  const onGoToExplorePress = () => {
+    navigation.navigate("Explore");
+  };
+
+  if (cart.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.totalLabel}>Your cart is empty</Text>
+        <PrimaryButton title="go to home" onPress={onGoToExplorePress} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -160,6 +174,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     margin: scale(20),
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: verticalScale(16),
   },
   totalPriceContainer: {
     flexDirection: "row",

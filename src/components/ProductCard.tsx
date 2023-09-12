@@ -33,7 +33,11 @@ export const ProductCard = (props: ProductCardProps) => {
       <Text style={styles.title} numberOfLines={1}>
         {product.title}
       </Text>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image
+        source={{ uri: product.image }}
+        style={styles.image}
+        resizeMode="contain"
+      />
       <Quantity
         id={product.id}
         price={product.price}

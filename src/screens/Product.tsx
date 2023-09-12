@@ -33,7 +33,11 @@ const ProductScreen = ({
           <Text style={styles.categoryTitle}>{data.category}</Text>
         </View>
       </View>
-      <Image source={{ uri: data.image }} style={styles.image} />
+      <Image
+        source={{ uri: data.image }}
+        style={styles.image}
+        resizeMode="contain"
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{data.title}</Text>
         <Text style={styles.description}>{data.description}</Text>

@@ -7,9 +7,8 @@ import { PALETTE } from "../constants";
 import CartScreen from "../screens/Cart";
 import ExploreScreen from "../screens/Explore";
 import PaymentScreen from "../screens/Payment";
-import ProductScreen from "../screens/Product";
-import ProductsScreen from "../screens/Products";
 import { BottomTabsParamList } from "../types";
+import CategoryNavigator from "./CategoryNavigator";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
@@ -32,8 +31,7 @@ const BottomTabsNavigator = () => {
           tabBarIcon: () => <HomeIcon height={30} width={30} />,
         }}
       />
-      <Tab.Screen name="Products" component={ProductsScreen} />
-      <Tab.Screen name="Product" component={ProductScreen} />
+      <Tab.Screen name="Category" component={CategoryNavigator} />
       <Tab.Screen
         name="Cart"
         component={CartScreen}

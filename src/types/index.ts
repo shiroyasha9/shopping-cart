@@ -28,8 +28,7 @@ export type DrawerScreenProps<T extends keyof DrawerParamList> =
 
 export type BottomTabsParamList = {
   Explore: undefined;
-  Products: undefined;
-  Product: undefined;
+  Category: NavigatorScreenParams<CategoryStackParamList>;
   Cart: undefined;
   Payment: undefined;
 };
@@ -40,9 +39,21 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
     DrawerScreenProps<"Main">
   >;
 
+export type CategoryStackParamList = {
+  Categories: undefined;
+  Products: undefined;
+  Product: undefined;
+};
+
+export type CategoryStackScreenProps<T extends keyof CategoryStackParamList> =
+  CompositeScreenProps<
+    NativeStackScreenProps<CategoryStackParamList, T>,
+    BottomTabsScreenProps<"Category">
+  >;
+
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootNativeStackParamList {}
+    interface RootParamList extends RootNativeStackParamList { }
   }
 }
 

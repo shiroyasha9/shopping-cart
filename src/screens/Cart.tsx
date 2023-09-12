@@ -1,6 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import CartIcon from "../assets/images/cart_icon.svg";
 import { PrimaryButton } from "../components";
 import Quantity from "../components/Quantity";
@@ -47,17 +48,19 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
                   <Text numberOfLines={1} style={styles.cartItemTitle}>
                     {item.title}
                   </Text>
-                  <Quantity
-                    id={item.id}
-                    price={item.price}
-                    title={item.title}
-                    description={item.description}
-                    image={item.image}
-                    quantity={item.quantity}
-                  />
-                  <Text style={styles.cartItemPrice}>
-                    ${item.price.toFixed(2)}
-                  </Text>
+                  <View style={styles.cartFirstRowInnerContainer}>
+                    <Quantity
+                      id={item.id}
+                      price={item.price}
+                      title={item.title}
+                      description={item.description}
+                      image={item.image}
+                      quantity={item.quantity}
+                    />
+                    <Text style={styles.cartItemPrice}>
+                      ${item.price.toFixed(2)}
+                    </Text>
+                  </View>
                 </View>
                 <Text numberOfLines={2} style={styles.cartItemDescription}>
                   {item.description}
@@ -85,15 +88,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    margin: 20,
+    margin: scale(20),
   },
   totalContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginVertical: 16,
+    marginVertical: verticalScale(16),
   },
-  totalPriceContainer: { rowGap: 4 },
+  totalPriceContainer: {
+    rowGap: 4,
+  },
   totalLabel: {
     fontSize: FONT_SIZE.huge,
     fontWeight: "bold",
@@ -122,8 +127,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   cartItemContainer: {
-    marginVertical: 24,
-    rowGap: 8,
+    marginVertical: verticalScale(24),
+    rowGap: verticalScale(8),
   },
   cartItemFirstRowContainer: {
     flexDirection: "row",
@@ -131,8 +136,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
   },
+  cartFirstRowInnerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flex: 1,
+    marginLeft: scale(12),
+  },
   cartItemTitle: {
-    width: 200,
+    width: Dimensions.get("window").width / 2,
     fontSize: FONT_SIZE.medium,
     fontWeight: "bold",
     color: PALETTE.blackberry,
@@ -148,7 +160,7 @@ const styles = StyleSheet.create({
   primaryButtonContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginBottom: 20,
+    marginBottom: verticalScale(20),
   },
   primaryButton: {
     borderTopRightRadius: 0,

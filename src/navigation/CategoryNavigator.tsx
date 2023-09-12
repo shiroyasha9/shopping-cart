@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { PALETTE } from "../constants";
 import CategoriesScreen from "../screens/Categories";
 import ProductScreen from "../screens/Product";
 import ProductsScreen from "../screens/Products";
@@ -11,6 +12,9 @@ function CategoryNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        contentStyle: {
+          backgroundColor: PALETTE.offWhite,
+        },
       }}
       initialRouteName="Categories"
     >

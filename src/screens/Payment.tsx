@@ -9,7 +9,12 @@ import {
   ViewProps,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import { moderateScale } from "react-native-size-matters";
+import {
+  moderateScale,
+  moderateVerticalScale,
+  scale,
+  verticalScale,
+} from "react-native-size-matters";
 import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
@@ -97,42 +102,50 @@ const PaymentScreen = () => {
           style={styles.darkInput}
         />
         <View style={styles.selectContainer}>
-          <RNPickerSelect
-            // @ts-ignore
-            Icon={() => {
-              return <CaretDownIcon height={24} width={24} />;
-            }}
-            style={{
-              inputIOS: { ...styles.input, ...styles.darkInput },
-              inputAndroid: {
-                ...styles.input,
-                ...styles.darkInput,
-              },
-              viewContainer: {
-                width: "45%",
-              },
-            }}
-            onValueChange={(value) => console.log(value)}
-            items={SELECT_ITEMS}
-          />
-          <RNPickerSelect
-            // @ts-ignore
-            Icon={() => {
-              return <CaretDownIcon height={24} width={24} />;
-            }}
-            style={{
-              inputIOS: { ...styles.input, ...styles.darkInput },
-              inputAndroid: {
-                ...styles.input,
-                ...styles.darkInput,
-              },
-              viewContainer: {
-                width: "45%",
-              },
-            }}
-            onValueChange={(value) => console.log(value)}
-            items={SELECT_ITEMS}
-          />
+          <View style={styles.select}>
+            <RNPickerSelect
+              // @ts-ignore
+              Icon={() => {
+                return <CaretDownIcon height={24} width={24} />;
+              }}
+              useNativeAndroidPickerStyle={false}
+              placeholder={{
+                label: "Lorem",
+                value: null,
+              }}
+              style={{
+                inputIOS: { ...styles.input, ...styles.darkInput },
+                inputAndroid: {
+                  ...styles.input,
+                  ...styles.darkInput,
+                },
+              }}
+              onValueChange={(value) => console.log(value)}
+              items={SELECT_ITEMS}
+            />
+          </View>
+          <View style={styles.select}>
+            <RNPickerSelect
+              // @ts-ignore
+              Icon={() => {
+                return <CaretDownIcon height={24} width={24} />;
+              }}
+              useNativeAndroidPickerStyle={false}
+              placeholder={{
+                label: "Lorem",
+                value: null,
+              }}
+              style={{
+                inputIOS: { ...styles.input, ...styles.darkInput },
+                inputAndroid: {
+                  ...styles.input,
+                  ...styles.darkInput,
+                },
+              }}
+              onValueChange={(value) => console.log(value)}
+              items={SELECT_ITEMS}
+            />
+          </View>
         </View>
       </View>
       <PrimaryButton title="pay" onPress={onPayPress} />
@@ -146,14 +159,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    margin: 20,
+    margin: scale(20),
   },
   totalPriceContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    columnGap: 48,
-    marginTop: 16,
+    columnGap: scale(48),
+    marginTop: verticalScale(16),
   },
   totalLabel: {
     fontSize: FONT_SIZE.massive,
@@ -166,11 +179,11 @@ const styles = StyleSheet.create({
     color: PALETTE.orange,
   },
   cardContainer: {
-    paddingVertical: 24,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(20),
+    paddingHorizontal: scale(16),
     backgroundColor: PALETTE.blackberry,
     borderRadius: 12,
-    rowGap: 30,
+    rowGap: verticalScale(30),
   },
   cardTitleContainer: {
     flexDirection: "row",
@@ -188,9 +201,12 @@ const styles = StyleSheet.create({
   input: {
     fontSize: FONT_SIZE.large,
     color: PALETTE.white,
-    paddingBottom: 8,
+    paddingBottom: moderateVerticalScale(8),
     borderBottomWidth: 2,
     borderBottomColor: "rgba(255, 255, 255, 0.5)",
+  },
+  select: {
+    width: "45%",
   },
   darkInput: {
     color: PALETTE.blackberry,
@@ -200,7 +216,7 @@ const styles = StyleSheet.create({
     color: PALETTE.blackberry,
   },
   addressContainer: {
-    rowGap: 20,
+    rowGap: verticalScale(16),
   },
   selectContainer: {
     flexDirection: "row",

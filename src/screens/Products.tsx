@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
 import { InvisibleItem, ProductCard } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
@@ -25,7 +26,7 @@ const ProductsScreen = ({
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.categoryTitleContainer}>
         <View style={styles.categoryTitleInnerContainer}>
           <Text style={styles.categoryTitle}>{category}</Text>
@@ -33,7 +34,7 @@ const ProductsScreen = ({
       </View>
       <FlatList
         data={data}
-        style={styles.container}
+        style={styles.flatListContainer}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => {
           return (
@@ -55,18 +56,21 @@ export default ProductsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    flex: 1,
+  },
+  flatListContainer: {
+    marginVertical: verticalScale(20),
   },
   categoryTitleContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
   categoryTitleInnerContainer: {
     backgroundColor: PALETTE.orange,
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 44,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: scale(44),
     alignItems: "center",
     justifyContent: "center",
   },

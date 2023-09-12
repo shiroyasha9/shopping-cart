@@ -24,6 +24,7 @@ export const PrimaryButton: React.FC<PressableProps & PrimaryButtonProps> = (
     title,
     icon,
     onPress,
+    disabled,
     style: containerStyle,
     textStyle,
     ...rest
@@ -37,9 +38,11 @@ export const PrimaryButton: React.FC<PressableProps & PrimaryButtonProps> = (
           styles.container,
           {
             opacity: pressed ? 0.5 : 1,
+            backgroundColor: disabled ? PALETTE.gray : PALETTE.orange,
           },
           containerStyle,
         ]}
+        disabled={disabled}
         {...rest}
       >
         {icon && icon}
@@ -57,7 +60,6 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: verticalScale(12),
     paddingHorizontal: scale(24),
-    backgroundColor: PALETTE.orange,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

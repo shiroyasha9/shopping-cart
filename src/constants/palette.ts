@@ -4,4 +4,5 @@ export const PALETTE = {
   orange: "#FF562E",
   blackberry: "#4B002D",
   offWhite: "#FAFAF0",
+  gray: "#d5d5d5",
 };

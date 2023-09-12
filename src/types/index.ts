@@ -42,7 +42,7 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
 export type CategoryStackParamList = {
   Categories: undefined;
   Products: { category: string };
-  Product: undefined;
+  Product: { id: number };
 };
 
 export type CategoryStackScreenProps<T extends keyof CategoryStackParamList> =

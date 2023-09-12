@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { Product } from "../types";
 import Quantity from "./Quantity";
@@ -9,9 +10,25 @@ type ProductCardProps = {
 
 export const ProductCard = (props: ProductCardProps) => {
   const { product } = props;
+  const navigation = useNavigation();
+
+  const handleProductPress = () => {
+    navigation.navigate("Drawer", {
+      screen: "Main",
+      params: {
+        screen: "Category",
+        params: {
+          screen: "Product",
+          params: {
+            id: product.id,
+          },
+        },
+      },
+    });
+  };
 
   return (
-    <View style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={handleProductPress}>
       <Text style={styles.title} numberOfLines={1}>
         {product.title}
       </Text>
@@ -24,7 +41,7 @@ export const ProductCard = (props: ProductCardProps) => {
         image={product.image}
       />
       <Text style={styles.price}>${product.price}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

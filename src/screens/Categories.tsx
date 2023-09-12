@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, View } from "react-native";
+import { verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
 import { CategoryCard, InvisibleCategoryItem } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
@@ -56,6 +57,6 @@ export default CategoriesScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: verticalScale(20),
   },
 });

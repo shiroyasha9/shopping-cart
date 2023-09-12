@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
 import { LoadingIndicator } from "../components";
 import Quantity from "../components/Quantity";
@@ -23,7 +24,10 @@ const ProductScreen = ({
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={{ flex: 1, margin: 20 }}
+      contentContainerStyle={styles.container}
+    >
       <View style={styles.categoryTitleContainer}>
         <View style={styles.categoryTitleInnerContainer}>
           <Text style={styles.categoryTitle}>{data.category}</Text>
@@ -32,9 +36,9 @@ const ProductScreen = ({
       <Image source={{ uri: data.image }} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{data.title}</Text>
-        <Text>{data.description}</Text>
-        <Text>
-          Rating: {data.rating.rate} ({data.rating.count} reviews)
+        <Text style={styles.description}>{data.description}</Text>
+        <Text style={styles.rating}>
+          Rating: {data.rating.rate} / 5 ★ ({data.rating.count} reviews)
         </Text>
         <View style={styles.countPriceContainer}>
           <Quantity
@@ -47,7 +51,7 @@ const ProductScreen = ({
           <Text style={styles.price}>${data.price}</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -55,28 +59,25 @@ export default ProductScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    margin: 20,
     alignItems: "center",
     justifyContent: "space-between",
+    rowGap: verticalScale(20),
   },
   image: {
-    height: 300,
-    width: 300,
+    height: scale(250),
+    width: scale(250),
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: PALETTE.orange,
   },
   categoryTitleContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: verticalScale(16),
   },
   categoryTitleInnerContainer: {
     backgroundColor: PALETTE.orange,
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 44,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(44),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -92,16 +93,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   detailsContainer: {
-    rowGap: 12,
+    rowGap: verticalScale(8),
   },
   title: {
     color: PALETTE.blackberry,
     fontSize: FONT_SIZE.large,
     fontWeight: "bold",
   },
+  description: {
+    color: PALETTE.darkGray,
+    fontSize: FONT_SIZE.tiny,
+  },
+  rating: {
+    color: PALETTE.black,
+  },
   countPriceContainer: {
-    marginTop: 20,
+    marginTop: verticalScale(12),
     alignItems: "center",
-    rowGap: 12,
+    rowGap: verticalScale(12),
   },
 });

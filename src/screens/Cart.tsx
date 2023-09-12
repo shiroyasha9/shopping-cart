@@ -1,4 +1,4 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import CartIcon from "../assets/images/cart_icon.svg";
@@ -6,15 +6,20 @@ import { PrimaryButton } from "../components";
 import Quantity from "../components/Quantity";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
+import { BottomTabsScreenProps } from "../types";
 
-const CartScreen = () => {
-  const [cart, setCart] = useAtom(cartAtom);
+const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
+  const cart = useAtomValue(cartAtom);
 
   const totalPrice = useMemo(() => {
     return cart.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
   }, [cart]);
+
+  const onNextPress = () => {
+    props.navigation.navigate("Payment");
+  };
 
   return (
     <>
@@ -66,6 +71,7 @@ const CartScreen = () => {
         <PrimaryButton
           title="next"
           style={styles.primaryButton}
+          onPress={onNextPress}
           disabled={cart.length === 0}
         />
       </View>

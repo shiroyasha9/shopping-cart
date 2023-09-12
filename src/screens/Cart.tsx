@@ -63,7 +63,11 @@ const CartScreen = () => {
         />
       </View>
       <View style={styles.primaryButtonContainer}>
-        <PrimaryButton title="next" style={styles.primaryButton} />
+        <PrimaryButton
+          title="next"
+          style={styles.primaryButton}
+          disabled={cart.length === 0}
+        />
       </View>
     </>
   );

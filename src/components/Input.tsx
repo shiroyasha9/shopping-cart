@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: scale(12),
     paddingVertical: verticalScale(8),
+    color: PALETTE.black,
     fontSize: FONT_SIZE.medium,
     flex: 1,
   },

@@ -29,15 +29,17 @@ export const ProductCard = (props: ProductCardProps) => {
   };
 
   return (
-    <TouchableOpacity style={styles.item} onPress={handleProductPress}>
-      <Text style={styles.title} numberOfLines={1}>
-        {product.title}
-      </Text>
-      <Image
-        source={{ uri: product.image }}
-        style={styles.image}
-        resizeMode="contain"
-      />
+    <View style={styles.item}>
+      <TouchableOpacity onPress={handleProductPress}>
+        <Text style={styles.title} numberOfLines={1}>
+          {product.title}
+        </Text>
+        <Image
+          source={{ uri: product.image }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
       <Quantity
         id={product.id}
         price={product.price}
@@ -46,7 +48,7 @@ export const ProductCard = (props: ProductCardProps) => {
         image={product.image}
       />
       <Text style={styles.price}>${product.price}</Text>
-    </TouchableOpacity>
+    </View>
   );
 };
 

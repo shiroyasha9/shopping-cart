@@ -58,6 +58,10 @@ const OnboardingScreen = ({
     }
   };
 
+  const goToAuthScreen = () => {
+    navigation.navigate("Auth");
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -74,7 +78,7 @@ const OnboardingScreen = ({
         onGoToSlide={goToSlideHandler}
         activeSlideIndex={activeSlideIndex}
         numberOfSlides={ONBOARDING_DATA.length}
-        onStart={() => navigation.navigate("Auth")}
+        onStart={goToAuthScreen}
       />
     </View>
   );
@@ -87,6 +91,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: PALETTE.blackberry,
   },
 });

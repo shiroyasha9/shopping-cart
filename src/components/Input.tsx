@@ -6,30 +6,44 @@ import {
   TextInputProps,
   TextStyle,
   View,
+  ViewProps,
 } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { FONT_SIZE, PALETTE } from "../constants";
 
 type InputProps = {
-  label: string;
+  label?: string;
   error?: string;
+  Icon?: React.ReactNode;
   labelStyle?: TextStyle;
+  containerStyle?: ViewProps["style"];
 };
 
 export const Input = (props: TextInputProps & InputProps) => {
-  const { label, style, labelStyle, error, onChangeText } = props;
+  const {
+    Icon,
+    label,
+    style,
+    labelStyle,
+    error,
+    containerStyle,
+    onChangeText,
+  } = props;
   const [hasUserTyped, setHasUserTyped] = useState(false);
   return (
     <View>
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
-      <TextInput
-        {...props}
-        onChangeText={(text) => {
-          onChangeText?.(text);
-          setHasUserTyped(true);
-        }}
-        style={[styles.input, style]}
-      />
+      {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
+      <View style={[styles.innerContainer, containerStyle]}>
+        <TextInput
+          {...props}
+          onChangeText={(text) => {
+            onChangeText?.(text);
+            setHasUserTyped(true);
+          }}
+          style={[styles.input, style]}
+        />
+        {Icon && <View style={{ marginRight: scale(12) }}>{Icon}</View>}
+      </View>
       <Text style={styles.error}>{error && hasUserTyped ? error : " "}</Text>
     </View>
   );
@@ -43,11 +57,17 @@ const styles = StyleSheet.create({
     color: PALETTE.blackberry,
   },
   input: {
-    backgroundColor: PALETTE.white,
-    borderRadius: 48,
     paddingHorizontal: scale(12),
     paddingVertical: verticalScale(8),
     fontSize: FONT_SIZE.medium,
+    flex: 1,
+  },
+  innerContainer: {
+    backgroundColor: PALETTE.white,
+    borderRadius: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   error: {
     marginTop: verticalScale(4),

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { Card, Input, PrimaryButton } from "../components";
 import RadioTabsNavigation from "../components/RadioTabsNavigaton";
@@ -23,7 +29,10 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <RadioTabsNavigation
         selectedTab={selectedTab}
         tabs={[
@@ -47,12 +56,14 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
               placeholder="Name"
               value={name}
               onChangeText={setName}
+              autoCorrect={false}
             />
             <Input
               label="Phone number"
               placeholder="Phone Number"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
+              keyboardType="phone-pad"
             />
           </>
         ) : null}
@@ -61,12 +72,15 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
           placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <Input
           label="Password"
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
+          secureTextEntry
         />
       </Card>
       <View>
@@ -80,7 +94,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
           Reprehenderit aliquid quis sunt
         </Text>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

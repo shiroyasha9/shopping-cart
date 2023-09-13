@@ -87,7 +87,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     columnGap: scale(10),
   },
-  action: { color: PALETTE.blackberry },
+  action: {
+    color: PALETTE.blackberry,
+    padding: 4,
+  },
   quantityContainer: {
     borderWidth: 1,
     borderColor: PALETTE.blackberry,

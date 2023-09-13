@@ -1,4 +1,3 @@
-import { atom } from "jotai";
 import { CartItem, User } from "../types";
 import { persistedAtom } from "./helper";
 

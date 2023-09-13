@@ -1,7 +1,7 @@
 import {
+  SafeAreaView,
   StatusBar as RNStatusBar,
   StatusBarProps as RNStatusBarProps,
-  SafeAreaView,
   StyleSheet,
   View,
 } from "react-native";

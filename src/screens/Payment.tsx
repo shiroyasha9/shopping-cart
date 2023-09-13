@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,11 +18,13 @@ import {
 import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
+import { paymentFormValidator } from "../lib/validators";
 import { cartAtom } from "../store";
 import { BottomTabsScreenProps } from "../types";
 
 type InputProps = {
   placeholder: string;
+  error?: string;
   style?: TextInputProps["style"];
   containerStyle?: ViewProps["style"];
 };
@@ -35,27 +37,80 @@ const SELECT_ITEMS = [
 ];
 
 const Input = (props: TextInputProps & InputProps) => {
-  const { placeholder, style, containerStyle, ...rest } = props;
+  const { placeholder, error, style, containerStyle, onChangeText, ...rest } =
+    props;
+  const [hasUserTyped, setHasUserTyped] = useState(false);
   return (
     <View style={[styles.inputContainer, containerStyle]}>
       <TextInput
         placeholder={placeholder}
-        style={[styles.input, style]}
+        onChangeText={(text) => {
+          onChangeText?.(text);
+          setHasUserTyped(true);
+        }}
+        style={[
+          styles.input,
+          style,
+          error?.length && hasUserTyped ? styles.invalidInput : {},
+        ]}
         placeholderTextColor="rgba(255, 255, 255, 0.5)"
         {...rest}
       />
+      <Text style={styles.error}>{error && hasUserTyped ? error : " "}</Text>
     </View>
   );
 };
 
 const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   const [cart, setCart] = useAtom(cartAtom);
+  const [form, setForm] = useState({
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    name: "",
+    firstSelect: "",
+    secondSelect: "",
+  });
 
   const totalPrice = useMemo(() => {
     return cart.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
   }, [cart]);
+
+  const errors = useMemo(() => {
+    const defaultErrors: {
+      cardNumber: string | undefined;
+      expiryDate: string | undefined;
+      cvv: string | undefined;
+      name: string | undefined;
+      firstSelect: string | undefined;
+      secondSelect: string | undefined;
+    } = {
+      cardNumber: undefined,
+      expiryDate: undefined,
+      cvv: undefined,
+      name: undefined,
+      firstSelect: undefined,
+      secondSelect: undefined,
+    };
+
+    const validation = paymentFormValidator.safeParse(form);
+    if (validation.success === true) {
+      return defaultErrors;
+    }
+
+    const flattenedErrors = validation.error.flatten().fieldErrors;
+    return {
+      ...defaultErrors,
+      ...Object.fromEntries(
+        Object.entries(flattenedErrors).map(([key, value]) => [
+          key,
+          value?.[0],
+        ]),
+      ),
+    };
+  }, [form]);
 
   const onPayPress = () => {
     setCart([]);
@@ -86,7 +141,14 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
           <Text style={styles.cardTitle}>Ipsum</Text>
           <Text style={styles.cardTitle}>CARD</Text>
         </View>
-        <Input placeholder="1234-5678-9012-3456" />
+        <Input
+          placeholder="1234-5678-9012-3456"
+          onChangeText={(cardNumber) => setForm({ ...form, cardNumber })}
+          keyboardType="number-pad"
+          maxLength={16}
+          value={form.cardNumber}
+          error={errors.cardNumber}
+        />
         <View
           style={{
             flexDirection: "row",
@@ -96,12 +158,22 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
         >
           <Input
             placeholder="19/23"
+            onChangeText={(expiryDate) => setForm({ ...form, expiryDate })}
+            value={form.expiryDate}
+            error={errors.expiryDate}
+            keyboardType="number-pad"
+            maxLength={4}
             containerStyle={{
               width: "40%",
             }}
           />
           <Input
             placeholder="123"
+            onChangeText={(cvv) => setForm({ ...form, cvv })}
+            value={form.cvv}
+            error={errors.cvv}
+            keyboardType="number-pad"
+            maxLength={3}
             containerStyle={{
               width: "40%",
             }}
@@ -112,6 +184,9 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
         <Text style={[styles.cardTitle, styles.darkTitle]}>Ipsum dolor</Text>
         <Input
           placeholder="John Doe"
+          onChangeText={(name) => setForm({ ...form, name })}
+          value={form.name}
+          error={errors.name}
           placeholderTextColor="rgba(0, 0, 0, 0.5)"
           style={styles.darkInput}
         />
@@ -123,18 +198,23 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
                 return <CaretDownIcon height={24} width={24} />;
               }}
               useNativeAndroidPickerStyle={false}
-              placeholder={{
-                label: "Lorem",
-                value: null,
-              }}
+              placeholder={{}}
               style={{
-                inputIOS: { ...styles.input, ...styles.darkInput },
+                inputIOS: {
+                  ...styles.input,
+                  ...styles.darkInput,
+                  ...(errors.firstSelect ? styles.invalidInput : {}),
+                },
                 inputAndroid: {
                   ...styles.input,
                   ...styles.darkInput,
+                  ...(errors.firstSelect ? styles.invalidInput : {}),
                 },
               }}
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) =>
+                setForm({ ...form, firstSelect: value })
+              }
+              value={form.firstSelect}
               items={SELECT_ITEMS}
             />
           </View>
@@ -145,10 +225,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
                 return <CaretDownIcon height={24} width={24} />;
               }}
               useNativeAndroidPickerStyle={false}
-              placeholder={{
-                label: "Lorem",
-                value: null,
-              }}
+              placeholder={{}}
               style={{
                 inputIOS: { ...styles.input, ...styles.darkInput },
                 inputAndroid: {
@@ -156,13 +233,20 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
                   ...styles.darkInput,
                 },
               }}
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) =>
+                setForm({ ...form, secondSelect: value })
+              }
+              value={form.secondSelect}
               items={SELECT_ITEMS}
             />
           </View>
         </View>
       </View>
-      <PrimaryButton title="pay" onPress={onPayPress} />
+      <PrimaryButton
+        title="pay"
+        onPress={onPayPress}
+        disabled={Object.values(errors).some((error) => error !== undefined)}
+      />
     </View>
   );
 };
@@ -186,7 +270,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     columnGap: scale(48),
-    marginTop: verticalScale(16),
+    marginTop: verticalScale(8),
   },
   totalLabel: {
     fontSize: FONT_SIZE.massive,
@@ -203,7 +287,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     backgroundColor: PALETTE.blackberry,
     borderRadius: 12,
-    rowGap: verticalScale(30),
+    rowGap: verticalScale(8),
   },
   cardTitleContainer: {
     flexDirection: "row",
@@ -225,6 +309,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "rgba(255, 255, 255, 0.5)",
   },
+  invalidInput: {
+    borderBottomColor: PALETTE.red,
+  },
   select: {
     width: "45%",
   },
@@ -236,11 +323,17 @@ const styles = StyleSheet.create({
     color: PALETTE.blackberry,
   },
   addressContainer: {
-    rowGap: verticalScale(16),
+    rowGap: verticalScale(8),
   },
   selectContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  error: {
+    marginTop: verticalScale(4),
+    fontSize: FONT_SIZE.tiny,
+    fontWeight: "bold",
+    color: PALETTE.red,
   },
 });

@@ -6,4 +6,5 @@ export const PALETTE = {
   offWhite: "#FAFAF0",
   gray: "#d5d5d5",
   darkGray: "#404040",
+  red: "#FF0000",
 };

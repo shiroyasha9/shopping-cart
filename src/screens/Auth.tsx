@@ -37,7 +37,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
           position: "bottom",
           type: "error",
           text1: "Invalid credentials",
-          text2: "Please check your email and password",
+          text2: "Please check your email and password, or sign up",
         });
         return;
       }
@@ -51,8 +51,8 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
         Toast.show({
           position: "bottom",
           type: "error",
-          text1: "Email already exists",
-          text2: "Please use another email",
+          text1: "Email or phone number already exists",
+          text2: "Please use another email or phone number",
         });
         return;
       }

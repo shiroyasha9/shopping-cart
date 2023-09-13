@@ -17,6 +17,7 @@ import SettingsIcon from "../assets/images/settings_icon.svg";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { currentUserAtom } from "../store";
 import Toast from "react-native-toast-message";
+import { scale, verticalScale } from "react-native-size-matters";
 
 const showComingSoonToast = () => {
   Toast.show({
@@ -82,20 +83,25 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   const currentUser = useAtomValue(currentUserAtom);
   return (
     <View style={styles.container}>
-      <DrawerContentScrollView {...props}>
-        <View style={styles.profileContainer}>
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: "https://staticg.sportskeeda.com/editor/2022/08/53e15-16596004347246.png",
-            }}
-          />
-          <View>
-            <Text style={styles.name}>{currentUser?.name}</Text>
-            <Text style={styles.username}>{currentUser?.email}</Text>
-          </View>
+      <View style={styles.profileContainer}>
+        <Image
+          style={styles.profileImage}
+          source={{
+            uri: "https://staticg.sportskeeda.com/editor/2022/08/53e15-16596004347246.png",
+          }}
+        />
+        <View>
+          <Text style={styles.name}>{currentUser?.name}</Text>
+          <Text style={styles.username}>{currentUser?.email}</Text>
         </View>
+      </View>
 
+      <DrawerContentScrollView
+        {...props}
+        contentContainerStyle={{
+          paddingTop: 0,
+        }}
+      >
         {DRAWER_ITEMS.map((item, index) => {
           const Icon = item.icon;
           return (
@@ -109,7 +115,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
                 },
               ]}
             >
-              <Icon {...item.iconProps} height={48} width={48} />
+              <Icon {...item.iconProps} height={scale(40)} width={scale(40)} />
               <Text style={styles.drawerItemTitle}>{item.title}</Text>
             </TouchableOpacity>
           );
@@ -129,19 +135,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: PALETTE.blackberry,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
+    paddingVertical: verticalScale(16),
+    paddingHorizontal: scale(32),
   },
   profileContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 24,
+    marginBottom: verticalScale(20),
+    marginTop: verticalScale(20),
     justifyContent: "space-around",
   },
   profileImage: {
-    height: 96,
-    width: 96,
-    borderRadius: 48,
+    height: scale(80),
+    width: scale(80),
+    borderRadius: scale(40),
   },
   name: {
     fontWeight: "bold",
@@ -155,17 +162,20 @@ const styles = StyleSheet.create({
   drawerItemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: verticalScale(16),
     borderBottomColor: PALETTE.white,
   },
   drawerItemTitle: {
     color: PALETTE.white,
     fontSize: FONT_SIZE.large,
-    marginLeft: 16,
+    marginLeft: scale(16),
     fontWeight: "600",
   },
   footer: {
-    marginBottom: 24,
+    marginBottom: verticalScale(20),
   },
-  footerText: { color: PALETTE.white, textAlign: "center" },
+  footerText: {
+    color: PALETTE.white,
+    textAlign: "center",
+  },
 });

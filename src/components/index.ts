@@ -8,3 +8,4 @@ export * from "./ProductCard";
 export * from "./CategoryCard";
 export * from "./Quantity";
 export * from "./StatusBar";
+export * from "./SearchBar";

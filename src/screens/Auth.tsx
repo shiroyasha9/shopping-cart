@@ -1,3 +1,4 @@
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -7,16 +8,19 @@ import {
   View,
 } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
+import Toast from "react-native-toast-message";
 import { Card, Input, PrimaryButton } from "../components";
 import RadioTabsNavigation from "../components/RadioTabsNavigaton";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { loginFormValidator, signupFormValidator } from "../lib/validators";
-import { RootNativeStackScreenProps } from "../types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { currentUserAtom, usersAtom } from "../store";
+import { RootNativeStackScreenProps, User } from "../types";
 
 const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   const [selectedTab, setSelectedTab] = useState<"LOGIN" | "SIGNUP">("LOGIN");
-  const [form, setForm] = useState({
+  const setCurrentUser = useSetAtom(currentUserAtom);
+  const [users, setUsers] = useAtom(usersAtom);
+  const [form, setForm] = useState<User>({
     name: "",
     email: "",
     phoneNumber: "",
@@ -24,7 +28,24 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   });
 
   const handleSubmit = () => {
-    AsyncStorage.setItem("isLoggedIn", "true");
+    if (selectedTab === "LOGIN") {
+      const user = users.find(
+        (user) => user.email === form.email && user.password === form.password,
+      );
+      if (!user) {
+        Toast.show({
+          position: "bottom",
+          type: "error",
+          text1: "Invalid credentials",
+          text2: "Please check your email and password",
+        });
+        return;
+      }
+      setCurrentUser(user);
+    } else if (selectedTab === "SIGNUP") {
+      setUsers([...users, form]);
+      setCurrentUser(form);
+    }
     navigation.reset({
       index: 0,
       routes: [

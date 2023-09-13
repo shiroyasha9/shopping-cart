@@ -15,15 +15,15 @@ function StackNavigator() {
 
   useEffect(() => {
     const init = async () => {
-      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-      if (isLoggedIn === "true") {
+      const isLoggedIn = await AsyncStorage.getItem("currentUser");
+      if (isLoggedIn) {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
     };
     init();
-  });
+  }, []);
 
   if (isLoggedIn === null) {
     return <LoadingIndicator style={{ backgroundColor: PALETTE.offWhite }} />;

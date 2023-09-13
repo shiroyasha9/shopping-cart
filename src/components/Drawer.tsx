@@ -4,6 +4,7 @@ import {
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
 import { DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript/src/types";
+import { useAtomValue } from "jotai";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SvgProps } from "react-native-svg";
@@ -14,6 +15,7 @@ import MailIcon from "../assets/images/mail_icon.svg";
 import MoneyIcon from "../assets/images/money_icon.svg";
 import SettingsIcon from "../assets/images/settings_icon.svg";
 import { FONT_SIZE, PALETTE } from "../constants";
+import { currentUserAtom } from "../store";
 
 const DRAWER_ITEMS: {
   icon: React.FC<SvgProps>;
@@ -48,7 +50,7 @@ const DRAWER_ITEMS: {
       icon: LogoutIcon,
       title: "Logout",
       onPress: async (navigation: DrawerNavigationHelpers) => {
-        await AsyncStorage.removeItem("isLoggedIn");
+        await AsyncStorage.removeItem("currentUser");
         navigation.reset({
           index: 0,
           routes: [
@@ -62,6 +64,7 @@ const DRAWER_ITEMS: {
   ];
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
+  const currentUser = useAtomValue(currentUserAtom);
   return (
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -73,8 +76,8 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
             }}
           />
           <View>
-            <Text style={styles.name}>Naruto Uzumaki</Text>
-            <Text style={styles.username}>@naruto</Text>
+            <Text style={styles.name}>{currentUser?.name}</Text>
+            <Text style={styles.username}>{currentUser?.email}</Text>
           </View>
         </View>
 
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 24,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   profileImage: {
     height: 96,

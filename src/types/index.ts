@@ -79,3 +79,10 @@ export type Product = {
 export type CartItem = Omit<Product, "rating" | "category"> & {
   quantity: number;
 };
+
+export type User = {
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+};

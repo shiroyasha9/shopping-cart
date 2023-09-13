@@ -1,6 +1,8 @@
 import { useAtom } from "jotai";
 import { useMemo, useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -130,7 +132,10 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <View style={styles.totalPriceContainer}>
         <Text style={styles.totalLabel}>Payment:</Text>
         <Text style={styles.total}>${totalPrice.toFixed(2)}</Text>
@@ -247,7 +252,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
         onPress={onPayPress}
         disabled={Object.values(errors).some((error) => error !== undefined)}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

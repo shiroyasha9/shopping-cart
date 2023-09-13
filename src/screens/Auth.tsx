@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,17 +7,21 @@ import {
   View,
 } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
+import { z } from "zod";
 import { Card, Input, PrimaryButton } from "../components";
 import RadioTabsNavigation from "../components/RadioTabsNavigaton";
 import { FONT_SIZE, PALETTE } from "../constants";
+import { loginFormValidator, signupFormValidator } from "../lib/validators";
 import { RootNativeStackScreenProps } from "../types";
 
 const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   const [selectedTab, setSelectedTab] = useState<"LOGIN" | "SIGNUP">("LOGIN");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+  });
 
   const handleSubmit = () => {
     navigation.navigate("Drawer", {
@@ -27,6 +31,39 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
       },
     });
   };
+
+  const errors = useMemo(() => {
+    const validator =
+      selectedTab === "LOGIN" ? loginFormValidator : signupFormValidator;
+
+    const defaultErrors: {
+      name: string | undefined;
+      email: string | undefined;
+      phoneNumber: string | undefined;
+      password: string | undefined;
+    } = {
+      name: undefined,
+      email: undefined,
+      phoneNumber: undefined,
+      password: undefined,
+    };
+
+    const validation = validator.safeParse(form);
+    if (validation.success === true) {
+      return defaultErrors;
+    }
+
+    const flattenedErrors = validation.error.flatten().fieldErrors;
+    return {
+      ...defaultErrors,
+      ...Object.fromEntries(
+        Object.entries(flattenedErrors).map(([key, value]) => [
+          key,
+          value?.[0],
+        ]),
+      ),
+    };
+  }, [form, selectedTab]);
 
   return (
     <KeyboardAvoidingView
@@ -54,41 +91,45 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
             <Input
               label="Your name"
               placeholder="Name"
-              value={name}
-              onChangeText={setName}
+              value={form.name}
+              onChangeText={(name) => setForm({ ...form, name })}
               autoCorrect={false}
+              error={errors.name}
             />
             <Input
               label="Phone number"
               placeholder="Phone Number"
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
+              value={form.phoneNumber}
+              onChangeText={(phoneNumber) => setForm({ ...form, phoneNumber })}
               keyboardType="phone-pad"
+              error={errors.phoneNumber}
             />
           </>
         ) : null}
         <Input
           label="E-mail"
           placeholder="E-mail"
-          value={email}
-          onChangeText={setEmail}
+          value={form.email}
+          onChangeText={(email) => setForm({ ...form, email })}
           keyboardType="email-address"
           autoCapitalize="none"
+          error={errors.email}
         />
         <Input
           label="Password"
           placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
+          value={form.password}
+          onChangeText={(password) => setForm({ ...form, password })}
           secureTextEntry
+          error={errors.password}
         />
       </Card>
       <View>
-        {selectedTab === "LOGIN" ? (
-          <PrimaryButton title="Login" onPress={handleSubmit} />
-        ) : (
-          <PrimaryButton title="Sign up" onPress={handleSubmit} />
-        )}
+        <PrimaryButton
+          title={selectedTab === "LOGIN" ? "Login" : "Sign up"}
+          onPress={handleSubmit}
+          disabled={Object.values(errors).some((error) => error !== undefined)}
+        />
         <Text style={styles.disclaimerText}>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
           Reprehenderit aliquid quis sunt

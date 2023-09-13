@@ -43,6 +43,19 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
       }
       setCurrentUser(user);
     } else if (selectedTab === "SIGNUP") {
+      const user = users.find(
+        (user) =>
+          user.email === form.email || user.phoneNumber === form.phoneNumber,
+      );
+      if (user) {
+        Toast.show({
+          position: "bottom",
+          type: "error",
+          text1: "Email already exists",
+          text2: "Please use another email",
+        });
+        return;
+      }
       setUsers([...users, form]);
       setCurrentUser(form);
     }

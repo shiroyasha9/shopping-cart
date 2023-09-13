@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useQuery } from "react-query";
 import { InvisibleItem, ProductCard, SearchBar } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
@@ -29,7 +29,7 @@ const ExploreScreen = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <SearchBar value={search} onChangeText={setSearch} />
       <FlatList
         data={filteredData}
@@ -51,3 +51,9 @@ const ExploreScreen = () => {
 };
 
 export default ExploreScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

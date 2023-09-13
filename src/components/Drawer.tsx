@@ -92,7 +92,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
         />
         <View>
           <Text style={styles.name}>{currentUser?.name}</Text>
-          <Text style={styles.username}>{currentUser?.email}</Text>
+          <Text style={styles.username}>{currentUser?.phoneNumber}</Text>
         </View>
       </View>
 

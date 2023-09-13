@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
@@ -10,6 +10,7 @@ import { cartAtom } from "../store";
 import { BottomTabsScreenProps } from "../types";
 
 const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
+  const { navigation } = props;
   const cart = useAtomValue(cartAtom);
 
   const totalPrice = useMemo(() => {
@@ -19,7 +20,11 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
   }, [cart]);
 
   const onNextPress = () => {
-    props.navigation.navigate("Payment");
+    navigation.navigate("Payment");
+  };
+
+  const onGoToExplorePress = () => {
+    navigation.navigate("Explore");
   };
 
   return (
@@ -37,38 +42,46 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
             <Text style={styles.total}>${totalPrice.toFixed(2)}</Text>
           </View>
         </View>
-        <FlatList
-          data={cart}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{}}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.cartItemContainer}>
-                <View style={styles.cartItemFirstRowContainer}>
-                  <Text numberOfLines={1} style={styles.cartItemTitle}>
-                    {item.title}
-                  </Text>
-                  <View style={styles.cartFirstRowInnerContainer}>
-                    <Quantity
-                      id={item.id}
-                      price={item.price}
-                      title={item.title}
-                      description={item.description}
-                      image={item.image}
-                      quantity={item.quantity}
-                    />
-                    <Text style={styles.cartItemPrice}>
-                      ${item.price.toFixed(2)}
+
+        {cart.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.totalLabel}>Your cart is empty</Text>
+            <PrimaryButton title="go to home" onPress={onGoToExplorePress} />
+          </View>
+        ) : (
+          <FlatList
+            data={cart}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={{}}
+            renderItem={({ item }) => {
+              return (
+                <View style={styles.cartItemContainer}>
+                  <View style={styles.cartItemFirstRowContainer}>
+                    <Text numberOfLines={1} style={styles.cartItemTitle}>
+                      {item.title}
                     </Text>
+                    <View style={styles.cartFirstRowInnerContainer}>
+                      <Quantity
+                        id={item.id}
+                        price={item.price}
+                        title={item.title}
+                        description={item.description}
+                        image={item.image}
+                        quantity={item.quantity}
+                      />
+                      <Text style={styles.cartItemPrice}>
+                        ${item.price.toFixed(2)}
+                      </Text>
+                    </View>
                   </View>
+                  <Text numberOfLines={2} style={styles.cartItemDescription}>
+                    {item.description}
+                  </Text>
                 </View>
-                <Text numberOfLines={2} style={styles.cartItemDescription}>
-                  {item.description}
-                </Text>
-              </View>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        )}
       </View>
       <View style={styles.primaryButtonContainer}>
         <PrimaryButton
@@ -166,5 +179,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     width: Dimensions.get("window").width / 2,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: verticalScale(16),
   },
 });

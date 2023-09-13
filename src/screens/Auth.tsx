@@ -174,7 +174,7 @@ export default AuthScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: verticalScale(36),
+    marginVertical: verticalScale(24),
     marginHorizontal: scale(24),
     justifyContent: "space-between",
     alignItems: "center",
@@ -185,6 +185,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.tiny,
     textAlign: "center",
     paddingHorizontal: scale(24),
-    marginTop: verticalScale(24),
+    marginTop: verticalScale(12),
   },
 });

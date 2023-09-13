@@ -118,7 +118,9 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   const onPayPress = () => {
     Toast.show({
       type: "success",
-      text1: "Payment Successful",
+      text1: "Payment Successful 🎉",
+      text2: "Expect delivery soon!",
+      position: "bottom",
     });
     setCart([]);
   };

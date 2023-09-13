@@ -14,6 +14,5 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(24),
     backgroundColor: PALETTE.orange,
     borderRadius: 20,
-    rowGap: verticalScale(20),
   },
 });

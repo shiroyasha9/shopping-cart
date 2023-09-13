@@ -1,4 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { scale, verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
 import { LoadingIndicator } from "../components";
@@ -23,16 +24,23 @@ const ProductScreen = ({
     return <LoadingIndicator />;
   }
 
+  const onCategoryPress = () => {
+    navigation.navigate("Products", { category: data.category });
+  };
+
   return (
     <ScrollView
       style={{ flex: 1, margin: 20 }}
       contentContainerStyle={styles.container}
     >
-      <View style={styles.categoryTitleContainer}>
+      <TouchableOpacity
+        style={styles.categoryTitleContainer}
+        onPress={onCategoryPress}
+      >
         <View style={styles.categoryTitleInnerContainer}>
           <Text style={styles.categoryTitle}>{data.category}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
       <Image
         source={{ uri: data.image }}
         style={styles.image}

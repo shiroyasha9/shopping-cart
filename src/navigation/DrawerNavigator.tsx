@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { scale } from "react-native-size-matters";
 import CartIcon from "../assets/images/cart_icon.svg";
 import HamburgerMenuIcon from "../assets/images/hamburger_icon.svg";
 import { StatusBar } from "../components";
@@ -33,14 +34,18 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={navigation.toggleDrawer}>
-        <HamburgerMenuIcon height={32} width={32} />
+        <HamburgerMenuIcon height={scale(32)} width={scale(32)} />
       </TouchableOpacity>
       <Text style={styles.headerLogo}>Lorem ipsum</Text>
       <TouchableOpacity onPress={onCartPress}>
         <View style={styles.cartCountContainer}>
           <Text style={styles.cartCount}>{cart.length}</Text>
         </View>
-        <CartIcon height={32} width={32} fill={PALETTE.blackberry} />
+        <CartIcon
+          height={scale(32)}
+          width={scale(32)}
+          fill={PALETTE.blackberry}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -86,12 +91,12 @@ const styles = StyleSheet.create({
   },
   cartCountContainer: {
     position: "absolute",
-    top: 0,
-    right: -5,
+    top: scale(0),
+    right: scale(-5),
     backgroundColor: PALETTE.orange,
     borderRadius: 50,
-    width: 14,
-    height: 14,
+    width: scale(14),
+    height: scale(14),
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1,

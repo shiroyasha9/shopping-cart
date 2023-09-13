@@ -207,7 +207,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
             <RNPickerSelect
               // @ts-ignore
               Icon={() => {
-                return <CaretDownIcon height={24} width={24} />;
+                return <CaretDownIcon height={scale(24)} width={scale(24)} />;
               }}
               useNativeAndroidPickerStyle={false}
               placeholder={{}}
@@ -234,7 +234,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
             <RNPickerSelect
               // @ts-ignore
               Icon={() => {
-                return <CaretDownIcon height={24} width={24} />;
+                return <CaretDownIcon height={scale(24)} width={scale(24)} />;
               }}
               useNativeAndroidPickerStyle={false}
               placeholder={{}}

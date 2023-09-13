@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import { scale } from "react-native-size-matters";
 
 import CartIcon from "../assets/images/cart_icon.svg";
 import CategoriesIcon from "../assets/images/categories_icon.svg";
@@ -30,7 +31,7 @@ const BottomTabsNavigator = () => {
         name="Explore"
         component={ExploreScreen}
         options={{
-          tabBarIcon: () => <HomeIcon height={30} width={30} />,
+          tabBarIcon: () => <HomeIcon height={scale(30)} width={scale(30)} />,
         }}
       />
       <Tab.Screen
@@ -52,7 +53,11 @@ const BottomTabsNavigator = () => {
         })}
         options={{
           tabBarIcon: () => (
-            <CategoriesIcon height={30} width={30} fill={PALETTE.orange} />
+            <CategoriesIcon
+              height={scale(30)}
+              width={scale(30)}
+              fill={PALETTE.orange}
+            />
           ),
         }}
       />
@@ -61,7 +66,11 @@ const BottomTabsNavigator = () => {
         component={CartScreen}
         options={{
           tabBarIcon: () => (
-            <CartIcon height={30} width={30} fill={PALETTE.orange} />
+            <CartIcon
+              height={scale(30)}
+              width={scale(30)}
+              fill={PALETTE.orange}
+            />
           ),
         }}
       />
@@ -70,7 +79,11 @@ const BottomTabsNavigator = () => {
         component={PaymentScreen}
         options={{
           tabBarIcon: () => (
-            <MoneyIcon height={30} width={30} fill={PALETTE.orange} />
+            <MoneyIcon
+              height={scale(30)}
+              width={scale(30)}
+              fill={PALETTE.orange}
+            />
           ),
         }}
       />

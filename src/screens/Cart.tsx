@@ -51,7 +51,11 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
             <View style={styles.cartCountContainer}>
               <Text style={styles.cartCount}>{cart.length}</Text>
             </View>
-            <CartIcon height={100} width={100} fill={PALETTE.blackberry} />
+            <CartIcon
+              height={scale(100)}
+              width={scale(100)}
+              fill={PALETTE.blackberry}
+            />
           </View>
           <View style={styles.totalPriceContainer}>
             <Text style={styles.totalLabel}>Total:</Text>
@@ -142,12 +146,12 @@ const styles = StyleSheet.create({
   },
   cartCountContainer: {
     position: "absolute",
-    top: 12,
-    right: -5,
+    top: scale(12),
+    right: scale(-5),
     backgroundColor: PALETTE.orange,
     borderRadius: 50,
-    width: 36,
-    height: 36,
+    width: scale(36),
+    height: scale(36),
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1,

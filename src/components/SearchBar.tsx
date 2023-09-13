@@ -18,7 +18,9 @@ export const SearchBar = (props: SearchBarProps) => {
       value={value}
       onChangeText={onChangeText}
       containerStyle={styles.input}
-      Icon={<SearchIcon height={20} width={20} fill={PALETTE.black} />}
+      Icon={
+        <SearchIcon height={scale(20)} width={scale(20)} fill={PALETTE.black} />
+      }
     />
   );
 };

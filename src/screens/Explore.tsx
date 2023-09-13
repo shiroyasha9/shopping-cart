@@ -1,11 +1,12 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import { verticalScale } from "react-native-size-matters";
+import { useMemo, useState } from "react";
+import { FlatList, View } from "react-native";
 import { useQuery } from "react-query";
-import { InvisibleItem, ProductCard } from "../components";
+import { InvisibleItem, ProductCard, SearchBar } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { Product } from "../types";
 
 const ExploreScreen = () => {
+  const [search, setSearch] = useState("");
   const { data, isLoading } = useQuery("products", async () => {
     const response = await fetch("https://fakestoreapi.com/products");
     if (!response.ok) {
@@ -14,21 +15,30 @@ const ExploreScreen = () => {
     return response.json() as Promise<Product[]>;
   });
 
+  const filteredData = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return data.filter((item) => {
+      return item.title.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [data, search]);
+
   if (!data || isLoading) {
     return <LoadingIndicator />;
   }
 
   return (
     <View>
+      <SearchBar value={search} onChangeText={setSearch} />
       <FlatList
-        data={data}
-        style={styles.container}
+        data={filteredData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => {
           return (
             <>
               <ProductCard product={item} />
-              {index === data.length - 1 && index % 2 === 0 && (
+              {index === filteredData.length - 1 && index % 2 === 0 && (
                 <InvisibleItem />
               )}
             </>
@@ -41,9 +51,3 @@ const ExploreScreen = () => {
 };
 
 export default ExploreScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: verticalScale(20),
-  },
-});

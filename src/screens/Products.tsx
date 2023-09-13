@@ -1,15 +1,14 @@
+import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
-import { InvisibleItem, ProductCard } from "../components";
+import { InvisibleItem, ProductCard, SearchBar } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { CategoryStackScreenProps, Product } from "../types";
 
-const ProductsScreen = ({
-  navigation,
-  route,
-}: CategoryStackScreenProps<"Products">) => {
+const ProductsScreen = ({ route }: CategoryStackScreenProps<"Products">) => {
+  const [search, setSearch] = useState("");
   const { category } = route.params;
   const { data, isLoading } = useQuery(["products", category], async () => {
     const response = await fetch(
@@ -20,6 +19,15 @@ const ProductsScreen = ({
     }
     return response.json() as Promise<Product[]>;
   });
+
+  const filteredData = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return data.filter((item) => {
+      return item.title.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [data, search]);
 
   if (!data || isLoading) {
     return <LoadingIndicator />;
@@ -32,15 +40,15 @@ const ProductsScreen = ({
           <Text style={styles.categoryTitle}>{category}</Text>
         </View>
       </View>
+      <SearchBar value={search} onChangeText={setSearch} />
       <FlatList
-        data={data}
-        style={styles.flatListContainer}
+        data={filteredData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => {
           return (
             <>
               <ProductCard product={item} />
-              {index === data.length - 1 && index % 2 === 0 && (
+              {index === filteredData.length - 1 && index % 2 === 0 && (
                 <InvisibleItem />
               )}
             </>
@@ -57,9 +65,6 @@ export default ProductsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  flatListContainer: {
-    marginVertical: verticalScale(20),
   },
   categoryTitleContainer: {
     alignItems: "center",

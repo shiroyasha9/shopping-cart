@@ -1,7 +1,8 @@
+import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { verticalScale } from "react-native-size-matters";
 import { useQuery } from "react-query";
-import { CategoryCard, InvisibleCategoryItem } from "../components";
+import { CategoryCard, InvisibleCategoryItem, SearchBar } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { PALETTE } from "../constants";
 import { CategoryStackScreenProps } from "../types";
@@ -9,6 +10,7 @@ import { CategoryStackScreenProps } from "../types";
 const CategoriesScreen = ({
   navigation,
 }: CategoryStackScreenProps<"Categories">) => {
+  const [search, setSearch] = useState("");
   const { data, isLoading } = useQuery("categories", async () => {
     const response = await fetch(
       "https://fakestoreapi.com/products/categories",
@@ -18,6 +20,15 @@ const CategoriesScreen = ({
     }
     return response.json() as Promise<string[]>;
   });
+
+  const filteredData = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return data.filter((item) => {
+      return item.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [data, search]);
 
   if (!data || isLoading) {
     return <LoadingIndicator />;
@@ -29,8 +40,9 @@ const CategoriesScreen = ({
 
   return (
     <View>
+      <SearchBar value={search} onChangeText={setSearch} />
       <FlatList
-        data={data}
+        data={filteredData}
         style={styles.container}
         keyExtractor={(item) => item}
         renderItem={({ item, index }) => {
@@ -41,7 +53,7 @@ const CategoriesScreen = ({
                 category={item}
                 backgroundColor={index % 3 === 0 ? PALETTE.orange : undefined}
               />
-              {index === data.length - 1 && index % 2 === 0 && (
+              {index === filteredData.length - 1 && index % 2 === 0 && (
                 <InvisibleCategoryItem />
               )}
             </>

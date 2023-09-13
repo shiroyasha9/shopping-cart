@@ -17,6 +17,7 @@ import {
   scale,
   verticalScale,
 } from "react-native-size-matters";
+import Toast from "react-native-toast-message";
 import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
@@ -115,6 +116,10 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   }, [form]);
 
   const onPayPress = () => {
+    Toast.show({
+      type: "success",
+      text1: "Payment Successful",
+    });
     setCart([]);
   };
 

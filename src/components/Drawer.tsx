@@ -16,6 +16,16 @@ import MoneyIcon from "../assets/images/money_icon.svg";
 import SettingsIcon from "../assets/images/settings_icon.svg";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { currentUserAtom } from "../store";
+import Toast from "react-native-toast-message";
+
+const showComingSoonToast = () => {
+  Toast.show({
+    type: "info",
+    text1: "Coming Soon 🚀",
+    text2: "This feature is not available yet",
+    position: "bottom",
+  });
+};
 
 const DRAWER_ITEMS: {
   icon: React.FC<SvgProps>;
@@ -26,14 +36,17 @@ const DRAWER_ITEMS: {
     {
       icon: MailIcon,
       title: "Messages",
+      onPress: showComingSoonToast,
     },
     {
       icon: BellIcon,
       title: "Notifications",
+      onPress: showComingSoonToast,
     },
     {
       icon: CardIcon,
       title: "Payment Methods",
+      onPress: showComingSoonToast,
     },
     {
       icon: MoneyIcon,
@@ -41,10 +54,12 @@ const DRAWER_ITEMS: {
       iconProps: {
         fill: PALETTE.white,
       },
+      onPress: showComingSoonToast,
     },
     {
       icon: SettingsIcon,
       title: "Settings",
+      onPress: showComingSoonToast,
     },
     {
       icon: LogoutIcon,

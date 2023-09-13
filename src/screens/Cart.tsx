@@ -1,6 +1,13 @@
 import { useAtomValue } from "jotai";
 import { useMemo } from "react";
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
 import CartIcon from "../assets/images/cart_icon.svg";
 import { PrimaryButton } from "../components";
@@ -25,6 +32,15 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
 
   const onGoToExplorePress = () => {
     navigation.navigate("Explore");
+  };
+
+  const onProductPress = (id: number) => {
+    navigation.navigate("Category", {
+      screen: "Product",
+      params: {
+        id,
+      },
+    });
   };
 
   return (
@@ -57,9 +73,11 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
               return (
                 <View style={styles.cartItemContainer}>
                   <View style={styles.cartItemFirstRowContainer}>
-                    <Text numberOfLines={1} style={styles.cartItemTitle}>
-                      {item.title}
-                    </Text>
+                    <TouchableOpacity onPress={() => onProductPress(item.id)}>
+                      <Text numberOfLines={1} style={styles.cartItemTitle}>
+                        {item.title}
+                      </Text>
+                    </TouchableOpacity>
                     <View style={styles.cartFirstRowInnerContainer}>
                       <Quantity
                         id={item.id}

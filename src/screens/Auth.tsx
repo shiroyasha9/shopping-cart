@@ -7,7 +7,6 @@ import {
   View,
 } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
-import { z } from "zod";
 import { Card, Input, PrimaryButton } from "../components";
 import RadioTabsNavigation from "../components/RadioTabsNavigaton";
 import { FONT_SIZE, PALETTE } from "../constants";
@@ -24,11 +23,19 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   });
 
   const handleSubmit = () => {
-    navigation.navigate("Drawer", {
-      screen: "Main",
-      params: {
-        screen: "Explore",
-      },
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: "Drawer",
+          params: {
+            screen: "Main",
+            params: {
+              screen: "Explore",
+            },
+          },
+        },
+      ],
     });
   };
 

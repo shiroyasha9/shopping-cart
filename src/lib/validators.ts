@@ -21,7 +21,8 @@ export const signupFormValidator = z.object({
     .min(2, { message: "Name must be at least 2 characters long" }),
   phoneNumber: z
     .string()
-    .min(10, { message: "Phone number must be at least 10 characters long" })
+    .min(9, { message: "Phone number must be at least 9 characters long" })
+    .max(12, { message: "Phone number must be at most 12 characters long" })
     .refine((value) => {
       return (
         isNumber(value),

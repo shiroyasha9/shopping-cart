@@ -12,6 +12,7 @@ import RadioTabsNavigation from "../components/RadioTabsNavigaton";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { loginFormValidator, signupFormValidator } from "../lib/validators";
 import { RootNativeStackScreenProps } from "../types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   const [selectedTab, setSelectedTab] = useState<"LOGIN" | "SIGNUP">("LOGIN");
@@ -23,6 +24,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   });
 
   const handleSubmit = () => {
+    AsyncStorage.setItem("isLoggedIn", "true");
     navigation.reset({
       index: 0,
       routes: [

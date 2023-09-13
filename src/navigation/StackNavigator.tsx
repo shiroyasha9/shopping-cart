@@ -1,5 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { LoadingIndicator } from "../components";
 import { PALETTE } from "../constants";
 import AuthScreen from "../screens/Auth";
 import OnboardingScreen from "../screens/Onboarding";
@@ -9,6 +11,24 @@ import DrawerNavigator from "./DrawerNavigator";
 const Stack = createNativeStackNavigator<RootNativeStackParamList>();
 
 function StackNavigator() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const init = async () => {
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      if (isLoggedIn === "true") {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+    init();
+  });
+
+  if (isLoggedIn === null) {
+    return <LoadingIndicator style={{ backgroundColor: PALETTE.offWhite }} />;
+  }
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,7 +37,7 @@ function StackNavigator() {
           backgroundColor: PALETTE.blackberry,
         },
       }}
-      initialRouteName="Onboarding"
+      initialRouteName={isLoggedIn ? "Drawer" : "Onboarding"}
     >
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />

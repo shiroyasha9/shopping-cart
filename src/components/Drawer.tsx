@@ -1,7 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
+import { DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript/src/types";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SvgProps } from "react-native-svg";
@@ -16,6 +18,7 @@ import { FONT_SIZE, PALETTE } from "../constants";
 const DRAWER_ITEMS: {
   icon: React.FC<SvgProps>;
   iconProps?: SvgProps;
+  onPress?: (navigation: DrawerNavigationHelpers) => void;
   title: string;
 }[] = [
     {
@@ -44,6 +47,17 @@ const DRAWER_ITEMS: {
     {
       icon: LogoutIcon,
       title: "Logout",
+      onPress: async (navigation: DrawerNavigationHelpers) => {
+        await AsyncStorage.removeItem("isLoggedIn");
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "Onboarding",
+            },
+          ],
+        });
+      },
     },
   ];
 
@@ -69,6 +83,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
           return (
             <TouchableOpacity
               key={index}
+              onPress={() => item.onPress?.(props.navigation)}
               style={[
                 styles.drawerItemContainer,
                 {

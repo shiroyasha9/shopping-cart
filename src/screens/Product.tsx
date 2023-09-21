@@ -1,6 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import { useQuery } from "react-query";
 import { LoadingIndicator } from "../components";
 import Quantity from "../components/Quantity";

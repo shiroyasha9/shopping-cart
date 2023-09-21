@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { verticalScale } from "react-native-size-matters";
+import { verticalScale } from "../utils";
 import Onboarding1 from "../assets/images/onboarding_1.svg";
 import Onboarding2 from "../assets/images/onboarding_2.svg";
 import Onboarding3 from "../assets/images/onboarding_3.svg";

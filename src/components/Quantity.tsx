@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { scale } from "react-native-size-matters";
+import { scale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
 import { CartItem } from "../types";

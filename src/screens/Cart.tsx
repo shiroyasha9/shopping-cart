@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import CartIcon from "../assets/images/cart_icon.svg";
 import { PrimaryButton } from "../components";
 import Quantity from "../components/Quantity";

@@ -8,7 +8,7 @@ import {
   View,
   ViewProps,
 } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
 
 type InputProps = {

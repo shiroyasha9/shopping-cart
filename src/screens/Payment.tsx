@@ -16,7 +16,7 @@ import {
   moderateVerticalScale,
   scale,
   verticalScale,
-} from "react-native-size-matters";
+} from "../utils";
 import Toast from "react-native-toast-message";
 import CaretDownIcon from "../assets/images/caret_down_icon.svg";
 import { PrimaryButton } from "../components";

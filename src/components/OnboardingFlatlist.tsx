@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, scale, verticalScale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { OnboardingSlideData } from "../types";
 

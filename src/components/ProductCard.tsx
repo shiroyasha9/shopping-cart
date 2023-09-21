@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { scale } from "react-native-size-matters";
+import { scale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { Product } from "../types";
 import Quantity from "./Quantity";

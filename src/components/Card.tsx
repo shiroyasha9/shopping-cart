@@ -1,5 +1,5 @@
 import { StyleSheet, View, ViewProps } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import { PALETTE } from "../constants";
 
 export const Card = (props: ViewProps) => {

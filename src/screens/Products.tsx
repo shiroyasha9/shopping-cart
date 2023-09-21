@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import { useQuery } from "react-query";
 import { InvisibleItem, ProductCard, SearchBar } from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";

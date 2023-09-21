@@ -17,7 +17,7 @@ import SettingsIcon from "../assets/images/settings_icon.svg";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { currentUserAtom } from "../store";
 import Toast from "react-native-toast-message";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 
 const showComingSoonToast = () => {
   Toast.show({
@@ -34,50 +34,50 @@ const DRAWER_ITEMS: {
   onPress?: (navigation: DrawerNavigationHelpers) => void;
   title: string;
 }[] = [
-    {
-      icon: MailIcon,
-      title: "Messages",
-      onPress: showComingSoonToast,
+  {
+    icon: MailIcon,
+    title: "Messages",
+    onPress: showComingSoonToast,
+  },
+  {
+    icon: BellIcon,
+    title: "Notifications",
+    onPress: showComingSoonToast,
+  },
+  {
+    icon: CardIcon,
+    title: "Payment Methods",
+    onPress: showComingSoonToast,
+  },
+  {
+    icon: MoneyIcon,
+    title: "Transactions",
+    iconProps: {
+      fill: PALETTE.white,
     },
-    {
-      icon: BellIcon,
-      title: "Notifications",
-      onPress: showComingSoonToast,
+    onPress: showComingSoonToast,
+  },
+  {
+    icon: SettingsIcon,
+    title: "Settings",
+    onPress: showComingSoonToast,
+  },
+  {
+    icon: LogoutIcon,
+    title: "Logout",
+    onPress: async (navigation: DrawerNavigationHelpers) => {
+      await AsyncStorage.removeItem("currentUser");
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: "Onboarding",
+          },
+        ],
+      });
     },
-    {
-      icon: CardIcon,
-      title: "Payment Methods",
-      onPress: showComingSoonToast,
-    },
-    {
-      icon: MoneyIcon,
-      title: "Transactions",
-      iconProps: {
-        fill: PALETTE.white,
-      },
-      onPress: showComingSoonToast,
-    },
-    {
-      icon: SettingsIcon,
-      title: "Settings",
-      onPress: showComingSoonToast,
-    },
-    {
-      icon: LogoutIcon,
-      title: "Logout",
-      onPress: async (navigation: DrawerNavigationHelpers) => {
-        await AsyncStorage.removeItem("currentUser");
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: "Onboarding",
-            },
-          ],
-        });
-      },
-    },
-  ];
+  },
+];
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   const currentUser = useAtomValue(currentUserAtom);

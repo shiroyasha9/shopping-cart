@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { scale } from "react-native-size-matters";
+import { scale } from "../utils";
 
 import CartIcon from "../assets/images/cart_icon.svg";
 import CategoriesIcon from "../assets/images/categories_icon.svg";

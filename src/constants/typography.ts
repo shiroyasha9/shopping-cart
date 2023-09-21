@@ -1,4 +1,4 @@
-import { moderateScale } from "react-native-size-matters";
+import { moderateScale } from "../utils";
 
 export const FONT_SIZE = {
   tiny: moderateScale(10),

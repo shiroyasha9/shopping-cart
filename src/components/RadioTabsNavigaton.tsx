@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
 
 type RadioTabs = {
@@ -40,9 +40,9 @@ const RadioTabsNavigation: React.FC<RadioTabsNavigationProps> = (props) => {
                 styles.radioTabContainer,
                 selectedTab === tabName
                   ? {
-                    borderBottomWidth: 2,
-                    borderBottomColor: PALETTE.orange,
-                  }
+                      borderBottomWidth: 2,
+                      borderBottomColor: PALETTE.orange,
+                    }
                   : {},
               ]}
             >

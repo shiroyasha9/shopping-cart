@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale } from "react-native-size-matters";
+import { scale } from "../utils";
 import CartIcon from "../assets/images/cart_icon.svg";
 import HamburgerMenuIcon from "../assets/images/hamburger_icon.svg";
 import { StatusBar } from "../components";

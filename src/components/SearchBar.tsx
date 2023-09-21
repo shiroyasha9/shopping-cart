@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale, verticalScale } from "../utils";
 import SearchIcon from "../assets/images/search_icon.svg";
 import { PALETTE } from "../constants";
 import { Input } from "./Input";

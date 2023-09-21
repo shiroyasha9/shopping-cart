@@ -8,8 +8,8 @@ import {
   View,
   ViewProps,
 } from "react-native";
-import { scale, verticalScale } from "../utils";
 import { FONT_SIZE, PALETTE } from "../constants";
+import { scale, verticalScale } from "../utils";
 
 type InputProps = {
   label?: string;
@@ -35,6 +35,7 @@ export const Input = (props: TextInputProps & InputProps) => {
       {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
       <View style={[styles.innerContainer, containerStyle]}>
         <TextInput
+          placeholderTextColor={PALETTE.darkGray}
           {...props}
           onChangeText={(text) => {
             onChangeText?.(text);

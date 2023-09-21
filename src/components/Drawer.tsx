@@ -7,16 +7,12 @@ import { DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript
 import { useAtomValue } from "jotai";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SvgProps } from "react-native-svg";
-import BellIcon from "../assets/images/bell_icon.svg";
-import CardIcon from "../assets/images/card_icon.svg";
-import LogoutIcon from "../assets/images/logout_icon.svg";
-import MailIcon from "../assets/images/mail_icon.svg";
-import MoneyIcon from "../assets/images/money_icon.svg";
-import SettingsIcon from "../assets/images/settings_icon.svg";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+
+import Toast from "react-native-toast-message";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { currentUserAtom } from "../store";
-import Toast from "react-native-toast-message";
 import { scale, verticalScale } from "../utils";
 
 const showComingSoonToast = () => {
@@ -28,42 +24,43 @@ const showComingSoonToast = () => {
   });
 };
 
+const iconStyle = {
+  fontSize: scale(30),
+  color: "white",
+};
+
 const DRAWER_ITEMS: {
-  icon: React.FC<SvgProps>;
-  iconProps?: SvgProps;
   onPress?: (navigation: DrawerNavigationHelpers) => void;
   title: string;
+  icon?: React.ReactNode;
 }[] = [
   {
-    icon: MailIcon,
+    icon: <IoniconsIcon name="mail" style={iconStyle} />,
     title: "Messages",
     onPress: showComingSoonToast,
   },
   {
-    icon: BellIcon,
+    icon: <IoniconsIcon name="notifications" style={iconStyle} />,
     title: "Notifications",
     onPress: showComingSoonToast,
   },
   {
-    icon: CardIcon,
+    icon: <IoniconsIcon name="card" style={iconStyle} />,
     title: "Payment Methods",
     onPress: showComingSoonToast,
   },
   {
-    icon: MoneyIcon,
+    icon: <MaterialIcon name="attach-money" style={iconStyle} />,
     title: "Transactions",
-    iconProps: {
-      fill: PALETTE.white,
-    },
     onPress: showComingSoonToast,
   },
   {
-    icon: SettingsIcon,
+    icon: <IoniconsIcon name="settings" style={iconStyle} />,
     title: "Settings",
     onPress: showComingSoonToast,
   },
   {
-    icon: LogoutIcon,
+    icon: <MaterialIcon name="logout" style={iconStyle} />,
     title: "Logout",
     onPress: async (navigation: DrawerNavigationHelpers) => {
       await AsyncStorage.removeItem("currentUser");
@@ -115,7 +112,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
                 },
               ]}
             >
-              <Icon {...item.iconProps} height={scale(40)} width={scale(40)} />
+              {Icon}
               <Text style={styles.drawerItemTitle}>{item.title}</Text>
             </TouchableOpacity>
           );

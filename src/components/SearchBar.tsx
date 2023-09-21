@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { scale, verticalScale } from "../utils";
-import SearchIcon from "../assets/images/search_icon.svg";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { PALETTE } from "../constants";
+import { scale, verticalScale } from "../utils";
 import { Input } from "./Input";
 
 type SearchBarProps = {
@@ -19,7 +19,7 @@ export const SearchBar = (props: SearchBarProps) => {
       onChangeText={onChangeText}
       containerStyle={styles.input}
       Icon={
-        <SearchIcon height={scale(20)} width={scale(20)} fill={PALETTE.black} />
+        <IoniconsIcon name="search" size={scale(20)} color={PALETTE.black} />
       }
     />
   );

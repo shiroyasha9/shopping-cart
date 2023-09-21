@@ -11,19 +11,19 @@ import {
   ViewProps,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import Toast from "react-native-toast-message";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import { PrimaryButton } from "../components";
+import { FONT_SIZE, PALETTE } from "../constants";
+import { paymentFormValidator } from "../lib/validators";
+import { cartAtom } from "../store";
+import { BottomTabsScreenProps } from "../types";
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
 } from "../utils";
-import Toast from "react-native-toast-message";
-import CaretDownIcon from "../assets/images/caret_down_icon.svg";
-import { PrimaryButton } from "../components";
-import { FONT_SIZE, PALETTE } from "../constants";
-import { paymentFormValidator } from "../lib/validators";
-import { cartAtom } from "../store";
-import { BottomTabsScreenProps } from "../types";
 
 type InputProps = {
   placeholder: string;
@@ -207,7 +207,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
             <RNPickerSelect
               // @ts-ignore
               Icon={() => {
-                return <CaretDownIcon height={scale(24)} width={scale(24)} />;
+                return <IoniconsIcon name="chevron-down" size={scale(24)} />;
               }}
               useNativeAndroidPickerStyle={false}
               placeholder={{}}
@@ -234,7 +234,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
             <RNPickerSelect
               // @ts-ignore
               Icon={() => {
-                return <CaretDownIcon height={scale(24)} width={scale(24)} />;
+                return <IoniconsIcon name="chevron-down" size={scale(24)} />;
               }}
               useNativeAndroidPickerStyle={false}
               placeholder={{}}

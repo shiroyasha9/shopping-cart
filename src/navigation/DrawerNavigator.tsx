@@ -10,14 +10,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale } from "../utils";
-import CartIcon from "../assets/images/cart_icon.svg";
-import HamburgerMenuIcon from "../assets/images/hamburger_icon.svg";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { StatusBar } from "../components";
 import CustomDrawer from "../components/Drawer";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
 import type { DrawerParamList } from "../types";
+import { scale } from "../utils";
 import BottomTabNavigator from "./BottomTabNavigator";
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -34,17 +33,17 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={navigation.toggleDrawer}>
-        <HamburgerMenuIcon height={scale(32)} width={scale(32)} />
+        <IoniconsIcon name="menu" size={scale(32)} color={PALETTE.blackberry} />
       </TouchableOpacity>
       <Text style={styles.headerLogo}>Lorem ipsum</Text>
       <TouchableOpacity onPress={onCartPress}>
         <View style={styles.cartCountContainer}>
           <Text style={styles.cartCount}>{cart.length}</Text>
         </View>
-        <CartIcon
-          height={scale(32)}
-          width={scale(32)}
-          fill={PALETTE.blackberry}
+        <IoniconsIcon
+          name="cart-outline"
+          size={scale(32)}
+          color={PALETTE.blackberry}
         />
       </TouchableOpacity>
     </View>

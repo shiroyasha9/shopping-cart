@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { scale, verticalScale } from "../utils";
-import CartIcon from "../assets/images/cart_icon.svg";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { PrimaryButton } from "../components";
 import Quantity from "../components/Quantity";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { cartAtom } from "../store";
 import { BottomTabsScreenProps } from "../types";
+import { scale, verticalScale } from "../utils";
 
 const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
   const { navigation } = props;
@@ -51,10 +51,10 @@ const CartScreen = (props: BottomTabsScreenProps<"Cart">) => {
             <View style={styles.cartCountContainer}>
               <Text style={styles.cartCount}>{cart.length}</Text>
             </View>
-            <CartIcon
-              height={scale(100)}
-              width={scale(100)}
-              fill={PALETTE.blackberry}
+            <IoniconsIcon
+              name="cart-outline"
+              size={scale(100)}
+              color={PALETTE.blackberry}
             />
           </View>
           <View style={styles.totalPriceContainer}>

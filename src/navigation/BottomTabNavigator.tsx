@@ -1,16 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { scale } from "../utils";
-
-import CartIcon from "../assets/images/cart_icon.svg";
-import CategoriesIcon from "../assets/images/categories_icon.svg";
-import HomeIcon from "../assets/images/home_icon.svg";
-import MoneyIcon from "../assets/images/money_icon.svg";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { PALETTE } from "../constants";
 import CartScreen from "../screens/Cart";
 import ExploreScreen from "../screens/Explore";
 import PaymentScreen from "../screens/Payment";
 import { BottomTabsParamList } from "../types";
+import { scale } from "../utils";
 import CategoryNavigator from "./CategoryNavigator";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
@@ -31,7 +28,13 @@ const BottomTabsNavigator = () => {
         name="Explore"
         component={ExploreScreen}
         options={{
-          tabBarIcon: () => <HomeIcon height={scale(30)} width={scale(30)} />,
+          tabBarIcon: () => (
+            <IoniconsIcon
+              name="home-outline"
+              size={scale(30)}
+              color={PALETTE.orange}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -53,10 +56,10 @@ const BottomTabsNavigator = () => {
         })}
         options={{
           tabBarIcon: () => (
-            <CategoriesIcon
-              height={scale(30)}
-              width={scale(30)}
-              fill={PALETTE.orange}
+            <IoniconsIcon
+              name="grid-outline"
+              size={scale(30)}
+              color={PALETTE.orange}
             />
           ),
         }}
@@ -66,10 +69,10 @@ const BottomTabsNavigator = () => {
         component={CartScreen}
         options={{
           tabBarIcon: () => (
-            <CartIcon
-              height={scale(30)}
-              width={scale(30)}
-              fill={PALETTE.orange}
+            <IoniconsIcon
+              name="cart-outline"
+              size={scale(30)}
+              color={PALETTE.orange}
             />
           ),
         }}
@@ -79,10 +82,10 @@ const BottomTabsNavigator = () => {
         component={PaymentScreen}
         options={{
           tabBarIcon: () => (
-            <MoneyIcon
-              height={scale(30)}
-              width={scale(30)}
-              fill={PALETTE.orange}
+            <MaterialIcon
+              name="attach-money"
+              size={scale(30)}
+              color={PALETTE.orange}
             />
           ),
         }}

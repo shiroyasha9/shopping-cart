@@ -11,7 +11,6 @@ import {
   ViewProps,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import Toast from "react-native-toast-message";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { PrimaryButton } from "../components";
 import { FONT_SIZE, PALETTE } from "../constants";
@@ -24,6 +23,7 @@ import {
   scale,
   verticalScale,
 } from "../utils";
+import { ToastModule } from "../utils/modules";
 
 type InputProps = {
   placeholder: string;
@@ -116,12 +116,7 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
   }, [form]);
 
   const onPayPress = () => {
-    Toast.show({
-      type: "success",
-      text1: "Payment Successful 🎉",
-      text2: "Expect delivery soon!",
-      position: "bottom",
-    });
+    ToastModule.toastMe("Payment Successful 🎉", ToastModule.LONG);
     setCart([]);
   };
 

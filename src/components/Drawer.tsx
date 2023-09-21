@@ -9,19 +9,14 @@ import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import { ToastModule } from "../utils/modules";
 
-import Toast from "react-native-toast-message";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { currentUserAtom } from "../store";
 import { scale, verticalScale } from "../utils";
 
 const showComingSoonToast = () => {
-  Toast.show({
-    type: "info",
-    text1: "Coming Soon 🚀",
-    text2: "This feature is not available yet",
-    position: "bottom",
-  });
+  ToastModule.toastMe("Coming soon 🚀", ToastModule.SHORT);
 };
 
 const iconStyle = {

@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
-import Toast from "react-native-toast-message";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { PALETTE } from "./src/constants";
 import StackNavigator from "./src/navigation/StackNavigator";
@@ -16,7 +15,6 @@ function App(): JSX.Element {
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>
-      <Toast />
     </QueryClientProvider>
   );
 }

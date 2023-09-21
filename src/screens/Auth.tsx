@@ -7,14 +7,14 @@ import {
   Text,
   View,
 } from "react-native";
-import { scale, verticalScale } from "../utils";
-import Toast from "react-native-toast-message";
 import { Card, Input, PrimaryButton } from "../components";
 import RadioTabsNavigation from "../components/RadioTabsNavigaton";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { loginFormValidator, signupFormValidator } from "../lib/validators";
 import { currentUserAtom, usersAtom } from "../store";
 import { RootNativeStackScreenProps, User } from "../types";
+import { scale, verticalScale } from "../utils";
+import { ToastModule } from "../utils/modules";
 
 const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   const [selectedTab, setSelectedTab] = useState<"LOGIN" | "SIGNUP">("LOGIN");
@@ -33,12 +33,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
         (user) => user.email === form.email && user.password === form.password,
       );
       if (!user) {
-        Toast.show({
-          position: "bottom",
-          type: "error",
-          text1: "Invalid credentials",
-          text2: "Please check your email and password, or sign up",
-        });
+        ToastModule.toastMe("Invalid credentials", ToastModule.SHORT);
         return;
       }
       setCurrentUser(user);
@@ -48,12 +43,10 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
           user.email === form.email || user.phoneNumber === form.phoneNumber,
       );
       if (user) {
-        Toast.show({
-          position: "bottom",
-          type: "error",
-          text1: "Email or phone number already exists",
-          text2: "Please use another email or phone number",
-        });
+        ToastModule.toastMe(
+          "Email or phone number already exists",
+          ToastModule.SHORT,
+        );
         return;
       }
       setUsers([...users, form]);

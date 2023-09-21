@@ -2,17 +2,27 @@ import { useRef, useState } from "react";
 import {
   Dimensions,
   FlatList,
+  Image,
   StatusBar,
   StyleSheet,
   View,
 } from "react-native";
-import { verticalScale } from "../utils";
-import Onboarding1 from "../assets/images/onboarding_1.svg";
-import Onboarding2 from "../assets/images/onboarding_2.svg";
-import Onboarding3 from "../assets/images/onboarding_3.svg";
 import { OnboardingFlatlist, OnboardingFooter } from "../components";
 import { PALETTE } from "../constants";
 import { OnboardingSlideData, RootNativeStackScreenProps } from "../types";
+import { verticalScale } from "../utils";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  heroImage: {
+    height: verticalScale(250),
+    width: verticalScale(250),
+  },
+});
 
 const ONBOARDING_DATA: ReadonlyArray<OnboardingSlideData> = [
   {
@@ -20,7 +30,10 @@ const ONBOARDING_DATA: ReadonlyArray<OnboardingSlideData> = [
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
     Icon: (
-      <Onboarding1 height={verticalScale(250)} width={verticalScale(250)} />
+      <Image
+        source={require("../assets/images/onboarding_1.png")}
+        style={styles.heroImage}
+      />
     ),
   },
   {
@@ -28,7 +41,10 @@ const ONBOARDING_DATA: ReadonlyArray<OnboardingSlideData> = [
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
     Icon: (
-      <Onboarding2 height={verticalScale(250)} width={verticalScale(250)} />
+      <Image
+        source={require("../assets/images/onboarding_2.png")}
+        style={styles.heroImage}
+      />
     ),
   },
   {
@@ -36,7 +52,10 @@ const ONBOARDING_DATA: ReadonlyArray<OnboardingSlideData> = [
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
     Icon: (
-      <Onboarding3 height={verticalScale(250)} width={verticalScale(250)} />
+      <Image
+        source={require("../assets/images/onboarding_3.png")}
+        style={styles.heroImage}
+      />
     ),
   },
 ];
@@ -85,11 +104,3 @@ const OnboardingScreen = ({
 };
 
 export default OnboardingScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -26,6 +26,8 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 
   const { navigation } = props;
 
+  const cartQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   const onCartPress = () => {
     navigation.navigate("Cart");
   };
@@ -38,7 +40,7 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
       <Text style={styles.headerLogo}>Lorem ipsum</Text>
       <TouchableOpacity onPress={onCartPress}>
         <View style={styles.cartCountContainer}>
-          <Text style={styles.cartCount}>{cart.length}</Text>
+          <Text style={styles.cartCount}>{cartQuantity}</Text>
         </View>
         <IoniconsIcon
           name="cart-outline"

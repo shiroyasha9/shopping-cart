@@ -5,6 +5,7 @@ import { LoadingIndicator } from "../components";
 import { PALETTE } from "../constants";
 import AuthScreen from "../screens/Auth";
 import OnboardingScreen from "../screens/Onboarding";
+import WifiListScreen from "../screens/WifiList";
 import { RootNativeStackParamList } from "../types";
 import DrawerNavigator from "./DrawerNavigator";
 
@@ -40,6 +41,7 @@ function StackNavigator() {
       initialRouteName={isLoggedIn ? "Drawer" : "Onboarding"}
     >
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="WifiList" component={WifiListScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Auth" component={AuthScreen} />
     </Stack.Navigator>

@@ -1,11 +1,17 @@
 import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useQuery } from "react-query";
-import { InvisibleItem, ProductCard, SearchBar } from "../components";
+import {
+  InvisibleItem,
+  PrimaryButton,
+  ProductCard,
+  SearchBar,
+} from "../components";
 import { LoadingIndicator } from "../components/LoadingIndicator";
-import { Product } from "../types";
+import { BottomTabsScreenProps, Product } from "../types";
+import { scale } from "../utils";
 
-const ExploreScreen = () => {
+const ExploreScreen = ({ navigation }: BottomTabsScreenProps<"Explore">) => {
   const [search, setSearch] = useState("");
   const { data, isLoading } = useQuery("products", async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -14,6 +20,10 @@ const ExploreScreen = () => {
     }
     return response.json() as Promise<Product[]>;
   });
+
+  const navigateToWifiListScreen = () => {
+    navigation.navigate("WifiList");
+  };
 
   const filteredData = useMemo(() => {
     if (!data) {
@@ -30,6 +40,11 @@ const ExploreScreen = () => {
 
   return (
     <View style={styles.container}>
+      <PrimaryButton
+        title="Go to Wifi List"
+        onPress={navigateToWifiListScreen}
+        style={{ marginHorizontal: scale(20) }}
+      />
       <SearchBar value={search} onChangeText={setSearch} />
       <FlatList
         data={filteredData}

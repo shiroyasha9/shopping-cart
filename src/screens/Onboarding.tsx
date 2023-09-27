@@ -10,7 +10,7 @@ import {
 import { OnboardingFlatlist, OnboardingFooter } from "../components";
 import { PALETTE } from "../constants";
 import { OnboardingSlideData, RootNativeStackScreenProps } from "../types";
-import { verticalScale } from "../utils";
+import { showToast, verticalScale } from "../utils";
 
 const styles = StyleSheet.create({
   container: {
@@ -78,6 +78,7 @@ const OnboardingScreen = ({
   };
 
   const goToAuthScreen = () => {
+    showToast("hi");
     navigation.navigate("Auth");
   };
 

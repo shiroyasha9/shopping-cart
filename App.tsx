@@ -5,6 +5,7 @@ import { StatusBar } from "react-native";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { PALETTE } from "./src/constants";
 import StackNavigator from "./src/navigation/StackNavigator";
+import ToastComponent from "./src/components/Toast/Toast";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App(): JSX.Element {
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>
+      <ToastComponent />
     </QueryClientProvider>
   );
 }

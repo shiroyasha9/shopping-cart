@@ -13,8 +13,7 @@ import { FONT_SIZE, PALETTE } from "../constants";
 import { loginFormValidator, signupFormValidator } from "../lib/validators";
 import { currentUserAtom, usersAtom } from "../store";
 import { RootNativeStackScreenProps, User } from "../types";
-import { scale, verticalScale } from "../utils";
-import { ToastModule } from "../utils/modules";
+import { scale, showToast, verticalScale } from "../utils";
 
 const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
   const [selectedTab, setSelectedTab] = useState<"LOGIN" | "SIGNUP">("LOGIN");
@@ -33,7 +32,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
         (user) => user.email === form.email && user.password === form.password,
       );
       if (!user) {
-        ToastModule.toastMe("Invalid credentials", ToastModule.SHORT);
+        showToast("Invalid credentials", 1000);
         return;
       }
       setCurrentUser(user);
@@ -43,10 +42,7 @@ const AuthScreen = ({ navigation }: RootNativeStackScreenProps<"Auth">) => {
           user.email === form.email || user.phoneNumber === form.phoneNumber,
       );
       if (user) {
-        ToastModule.toastMe(
-          "Email or phone number already exists",
-          ToastModule.SHORT,
-        );
+        showToast("Email or phone number already exists", 1000);
         return;
       }
       setUsers([...users, form]);

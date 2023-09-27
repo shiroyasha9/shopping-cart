@@ -10,9 +10,8 @@ import {
   View,
   ViewProps,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { PrimaryButton } from "../components";
+import Picker from "../components/Picker";
 import { FONT_SIZE, PALETTE } from "../constants";
 import { paymentFormValidator } from "../lib/validators";
 import { cartAtom } from "../store";
@@ -33,10 +32,10 @@ type InputProps = {
 };
 
 const SELECT_ITEMS = [
-  { label: "Lorem", value: "lorem" },
-  { label: "Ipsum", value: "ipsum" },
-  { label: "Dolor", value: "dolor" },
-  { label: "Sit", value: "sit" },
+  { label: "Lorem", value: "Lorem" },
+  { label: "Ipsum", value: "Ipsum" },
+  { label: "Dolor", value: "Dolor" },
+  { label: "Sit", value: "Sit" },
 ];
 
 const Input = (props: TextInputProps & InputProps) => {
@@ -199,52 +198,21 @@ const PaymentScreen = ({ navigation }: BottomTabsScreenProps<"Payment">) => {
         />
         <View style={styles.selectContainer}>
           <View style={styles.select}>
-            <RNPickerSelect
-              // @ts-ignore
-              Icon={() => {
-                return <IoniconsIcon name="chevron-down" size={scale(24)} />;
-              }}
-              useNativeAndroidPickerStyle={false}
-              placeholder={{}}
-              style={{
-                inputIOS: {
-                  ...styles.input,
-                  ...styles.darkInput,
-                  ...(errors.firstSelect ? styles.invalidInput : {}),
-                },
-                inputAndroid: {
-                  ...styles.input,
-                  ...styles.darkInput,
-                  ...(errors.firstSelect ? styles.invalidInput : {}),
-                },
-              }}
+            <Picker
               onValueChange={(value) =>
                 setForm({ ...form, firstSelect: value })
               }
               value={form.firstSelect}
-              items={SELECT_ITEMS}
+              options={SELECT_ITEMS}
             />
           </View>
           <View style={styles.select}>
-            <RNPickerSelect
-              // @ts-ignore
-              Icon={() => {
-                return <IoniconsIcon name="chevron-down" size={scale(24)} />;
-              }}
-              useNativeAndroidPickerStyle={false}
-              placeholder={{}}
-              style={{
-                inputIOS: { ...styles.input, ...styles.darkInput },
-                inputAndroid: {
-                  ...styles.input,
-                  ...styles.darkInput,
-                },
-              }}
+            <Picker
               onValueChange={(value) =>
                 setForm({ ...form, secondSelect: value })
               }
               value={form.secondSelect}
-              items={SELECT_ITEMS}
+              options={SELECT_ITEMS}
             />
           </View>
         </View>
@@ -331,6 +299,7 @@ const styles = StyleSheet.create({
   },
   addressContainer: {
     rowGap: verticalScale(8),
+    zIndex: 1,
   },
   selectContainer: {
     flexDirection: "row",

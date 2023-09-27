@@ -12,7 +12,7 @@ const SplashScreen = ({
     setTimeout(async () => {
       const isLoggedIn = await AsyncStorage.getItem("currentUser");
       navigation.replace(isLoggedIn ? "Drawer" : "Onboarding");
-    }, 3000);
+    }, 200);
   }, []);
 
   return (
